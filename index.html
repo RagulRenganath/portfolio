@@ -1,301 +1,521 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ragul Renganath R - Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>R Ragul Renganath — Portfolio</title>
+  <meta name="description" content="Portfolio of R. Ragul Renganath — MBA Finance candidate. Education, projects, certifications, achievements and contact." />
+  <meta name="theme-color" content="#052034" />
+
+  <!-- Fonts & icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Plus+Jakarta+Sans:wght@600;800&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
   <style>
-    /* --- Global Styles --- */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: #0a0f1c;
-      color: #e6e6e6;
-      overflow-x: hidden;
+    /* ===== Color palette & base ===== */
+    :root{
+      --bg:#031021;           /* deep navy */
+      --panel:#091828;        /* panel/nav background */
+      --muted:#9fb0c9;       /* secondary text */
+      --text:#eaf2fb;        /* primary text */
+      --accent:#caa45b;      /* soft gold */
+      --accent-2:#3db0d4;    /* cyan accent for links */
+      --glass: rgba(255,255,255,0.02);
+      --rounded:14px;
+      --max-width:1100px;
     }
-    a { text-decoration: none; color: inherit; }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(180deg,var(--bg), #02111a 60%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+    }
+    a{color:var(--accent-2); text-decoration:none}
+    a:hover{text-decoration:underline}
 
-    /* --- Navigation --- */
-    nav {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 50px;
-      background: rgba(10, 15, 28, 0.9);
-      z-index: 1000;
-    }
-    nav h1 {
-      color: #00c9ff;
-      font-size: 1.4rem;
-      letter-spacing: 1px;
-    }
-    nav ul {
-      display: flex;
-      list-style: none;
-    }
-    nav ul li {
-      margin-left: 25px;
-    }
-    nav ul li a {
-      color: #e6e6e6;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-    nav ul li a:hover {
-      color: #00c9ff;
-    }
+    /* ===== Utility container ===== */
+    .wrap{max-width:var(--max-width);margin:0 auto;padding:0 20px}
 
-    /* --- Hero Section --- */
-    header {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      z-index: 1;
+    /* ===== NAVBAR ===== */
+    .topbar{
+      position:fixed;left:0;right:0;top:12px;z-index:60;
+      display:flex;align-items:center;justify-content:center;
+      padding:8px 20px;border-radius:999px;margin:0 12px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      box-shadow:0 8px 30px rgba(0,0,0,0.45);
+      backdrop-filter:blur(6px);
     }
-    header h2 {
-      font-size: 2.5rem;
-      color: #fff;
+    .nav{
+      display:flex;gap:20px;align-items:center;
     }
-    header h3 {
-      margin-top: 15px;
-      font-size: 1.2rem;
-      color: #00c9ff;
-      height: 30px;
+    .nav a{
+      color:var(--muted); font-weight:600; padding:10px 12px; border-radius:10px; transition:all .24s ease;
     }
+    .nav a:hover,.nav a.active{ color:var(--text); background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); transform:translateY(-3px); box-shadow:0 10px 30px rgba(0,0,0,0.35) }
+    /* visible menu button for mobile */
+    .menu-btn{
+      display:none; position:fixed; right:18px; top:18px; z-index:90;
+      background:var(--panel); border:1px solid rgba(255,255,255,.03); padding:10px; border-radius:10px; cursor:pointer;
+      box-shadow:0 8px 24px rgba(0,0,0,.4);
+    }
+    .menu-btn .bar{width:22px;height:2px;background:var(--text);margin:4px 0;border-radius:2px}
 
-    /* --- Sections --- */
-    section {
-      padding: 100px 15%;
-      min-height: 100vh;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 1s ease;
+    /* ===== HERO ===== */
+    header.hero{min-height:84vh;display:flex;align-items:center;justify-content:center;padding:120px 12px 60px;position:relative}
+    .hero-card{width:100%;max-width:980px;border-radius:20px;padding:36px;background:linear-gradient(180deg,var(--glass), rgba(255,255,255,0.01)); border:1px solid rgba(255,255,255,0.04); box-shadow:0 30px 70px rgba(2,6,12,0.6)}
+    .hero-tag{display:inline-flex;align-items:center;gap:.6rem;padding:.35rem .75rem;border-radius:999px;background:rgba(255,255,255,.02);color:var(--muted);font-weight:700;margin-bottom:12px}
+    h1.title{font-family:'Plus Jakarta Sans', Inter, sans-serif;font-weight:800;font-size:1.9rem;margin:8px 0;color:var(--text);line-height:1.08}
+    p.lead{color:var(--muted);margin:10px 0 18px;max-width:70ch}
+    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+    .btn{
+      display:inline-flex;align-items:center;gap:.6rem;padding:.62rem .95rem;border-radius:10px;font-weight:700;border:0;cursor:pointer;transition:all .22s;
     }
-    section.revealed {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    h2.section-title {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: #00c9ff;
-    }
-    p {
-      line-height: 1.7;
-      margin-bottom: 15px;
-    }
+    .btn-primary{background:linear-gradient(90deg,var(--accent-2),#2c9bb0);color:#06121a;box-shadow:0 10px 30px rgba(45,155,175,.08)}
+    .btn-outline{background:transparent;border:1px solid rgba(255,255,255,.04);color:var(--muted)}
 
-    /* --- About --- */
-    #about {
-      background: #11162a;
-      border-radius: 15px;
-    }
+    /* ===== SECTIONS ===== */
+    section{padding:72px 0}
+    .section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
+    .kicker{color:var(--accent);font-weight:800;letter-spacing:.22em;font-size:.82rem}
+    .section-title{font-family:'Plus Jakarta Sans';font-weight:800;font-size:1.3rem;color:var(--text)}
 
-    /* --- Projects --- */
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-    }
-    .project {
-      background: #11162a;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-      transition: 0.3s;
-    }
-    .project:hover {
-      transform: translateY(-8px);
-      background: #0e1324;
-    }
+    /* panels and cards */
+    .panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:12px;padding:18px;border:1px solid rgba(255,255,255,0.04)}
+    .row{display:flex;flex-wrap:wrap;gap:18px}
+    .col-2{flex:1 1 55%}
+    .col-3{flex:1 1 40%}
 
-    /* --- Contact --- */
-    #contact {
-      text-align: center;
-    }
-    #contact a {
-      display: inline-block;
-      margin: 10px;
-      padding: 10px 20px;
-      border: 1px solid #00c9ff;
-      border-radius: 8px;
-      transition: 0.3s;
-      color: #00c9ff;
-    }
-    #contact a:hover {
-      background: #00c9ff;
-      color: #0a0f1c;
-    }
+    /* timeline */
+    .timeline{position:relative;padding-left:18px}
+    .timeline::before{content:'';position:absolute;left:6px;top:0;width:3px;height:100%;background:linear-gradient(180deg,var(--accent),transparent)}
+    .tl-item{position:relative;padding:12px 0 18px 14px}
+    .tl-item::before{content:'';position:absolute;left:-6px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 10px 28px rgba(202,164,91,.12)}
 
-    /* --- Canvas Background --- */
-    #particles {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
+    /* projects */
+    .projects-grid{display:grid;grid-template-columns:1fr;gap:14px}
+    @media(min-width:880px){.projects-grid{grid-template-columns:repeat(2,1fr)}}
+    .project-card{padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,.04);transition:transform .25s, box-shadow .25s}
+    .project-card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(2,6,12,.6)}
+
+    /* achievements */
+    .achievement{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+    .achievement .text{flex:1}
+    .achievement .stat{font-size:44px;font-weight:800;color:var(--accent);min-width:110px;text-align:center}
+
+    /* skills */
+    .skill{margin-bottom:12px}
+    .skill .meta{display:flex;justify-content:space-between;font-weight:700;color:var(--muted);margin-bottom:6px}
+    .skill .track{height:12px;background:rgba(255,255,255,0.02);border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,0.03)}
+    .skill .fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent), #ffe8b3);transition:width 1100ms cubic-bezier(.2,.7,.1,1)}
+
+    /* contact */
+    .contact-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px}
+    .contact-list a{color:var(--text);font-weight:600}
+
+    /* footer */
+    footer{border-top:1px solid rgba(255,255,255,.03);padding:22px 0;color:var(--muted);text-align:center}
+
+    /* reveal animations (subtle) */
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .8s ease, transform .8s cubic-bezier(.2,.9,.1,1)}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* responsive */
+    @media(max-width:880px){
+      .wrap{padding:0 16px}
+      .col-2,.col-3{flex:1 1 100%}
+      .topbar{left:12px;right:12px}
+      .menu-btn{display:block}
+      .nav{display:none}
+      .nav.open{display:flex;flex-direction:column;gap:8px;padding:8px}
+      .hero-card{padding:20px}
+      h1.title{font-size:1.5rem}
     }
   </style>
 </head>
 <body>
 
-  <!-- Particle Background -->
-  <canvas id="particles"></canvas>
+  <!-- Visible menu button (mobile) -->
+  <button id="menuBtn" class="menu-btn" aria-label="Open menu" title="Menu">
+    <span class="bar"></span>
+    <span class="bar"></span>
+    <span class="bar"></span>
+  </button>
 
-  <!-- Navigation -->
-  <nav>
-    <h1>Ragul Renganath R</h1>
-    <ul>
-      <li><a href="#about">About</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero -->
-  <header>
-    <h2>Hello, I'm <span style="color:#00c9ff;">Ragul</span></h2>
-    <h3 id="typing"></h3>
-  </header>
-
-  <!-- About -->
-  <section id="about">
-    <h2 class="section-title">About Me</h2>
-    <p>I am currently pursuing an MBA in Finance at Amrita School of Business, with a background in Economics. My academic journey has shaped my analytical mindset, and my passion lies in blending finance with technology to create impactful solutions.</p>
-    <p>I believe in continuous learning and adapting to the evolving business landscape while striving for excellence in every endeavor.</p>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects">
-    <h2 class="section-title">Projects</h2>
-    <div class="projects">
-      <div class="project">
-        <h3>Fund Accounting Simulation</h3>
-        <p>A structured project exploring fund accounting processes, NAV calculation, and corporate actions.</p>
+  <!-- Top centered nav (no name/logo left) -->
+  <div class="topbar">
+    <nav class="wrap" aria-label="Main navigation">
+      <div id="navLinks" class="nav" role="navigation" aria-hidden="false">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#education" class="nav-link">Education</a>
+        <a href="#experience" class="nav-link">Experience</a>
+        <a href="#certifications" class="nav-link">Certifications</a>
+        <a href="#projects" class="nav-link">Projects</a>
+        <a href="#achievements" class="nav-link">Achievements</a>
+        <a href="#skills" class="nav-link">Skills</a>
+        <a href="#hobbies" class="nav-link">Hobbies</a>
+        <a href="#contact" class="nav-link">Contact</a>
       </div>
-      <div class="project">
-        <h3>Market Segmentation Analysis</h3>
-        <p>Applied statistical and machine learning techniques to cluster consumer data and derive insights.</p>
-      </div>
-      <div class="project">
-        <h3>Business Communication Report</h3>
-        <p>Comprehensive research on communication strategies for effective management decision-making.</p>
+    </nav>
+  </div>
+
+  <!-- HERO / HOME -->
+  <header id="home" class="hero">
+    <div class="wrap hero-card reveal" data-delay="0">
+      <div class="hero-tag"><i class="bi bi-award-fill" style="color:var(--accent)"></i> MBA Finance Candidate · Economics Graduate</div>
+      <h1 class="title">R Ragul Renganath — <span id="typeTarget" aria-live="polite"></span></h1>
+      <p class="lead">I am currently pursuing an MBA in Finance at Amrita School of Business, building upon a strong foundation in Economics and data analysis. My journey blends academic rigor, industry exposure, and creative problem-solving, aiming to drive impactful financial and strategic solutions.</p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#projects">Explore Projects</a>
+        <a class="btn btn-outline" href="#contact">Contact</a>
       </div>
     </div>
-  </section>
+  </header>
 
-  <!-- Contact -->
-  <section id="contact">
-    <h2 class="section-title">Contact</h2>
-    <p>Let’s connect and collaborate:</p>
-    <a href="mailto:ragulrenganathr@example.com">Email</a>
-    <a href="https://www.linkedin.com/in/ragul-renganath-r-7b73b2259" target="_blank">LinkedIn</a>
-    <a href="https://github.com/RagulRenganath" target="_blank">GitHub</a>
-  </section>
+  <!-- ABOUT -->
+  <main>
+    <section id="about" class="wrap reveal" data-delay="80">
+      <div class="section-head">
+        <div class="kicker">ABOUT</div>
+        <div class="section-title">From Economics to Corporate Finance</div>
+      </div>
 
-  <!-- Scripts -->
+      <div class="row">
+        <div class="col-2 panel">
+          <p><strong>Born and raised in Kodaikanal.</strong> I completed my UG in Economics from PSG College of Arts &amp; Science with distinction (CGPA: 8.9). I transitioned to an MBA in Finance to integrate economics insights with corporate finance and analytics.</p>
+          <p>I focus on analytical thinking, creative problem solving, and building practical financial solutions. My objective is to convert data into strategic decisions that create measurable business value.</p>
+        </div>
+
+        <aside class="col-3 panel" aria-label="Key highlights">
+          <strong style="display:block;margin-bottom:12px">Key highlights</strong>
+          <ul style="margin:0;padding-left:18px;line-height:1.7;color:var(--muted)">
+            <li>UG in Economics — PSG College of Arts &amp; Science (Distinction)</li>
+            <li>MBA (Finance) — Amrita School of Business (2025–2027)</li>
+            <li>Data-driven approach and strategic planning</li>
+            <li>Videography &amp; digital content skills</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education" class="wrap reveal" data-delay="120">
+      <div class="section-head">
+        <div class="kicker">EDUCATION</div>
+        <div class="section-title">Academic Timeline</div>
+      </div>
+
+      <div class="panel timeline">
+        <div class="tl-item">
+          <strong>MBA in Finance — Amrita School of Business, Coimbatore</strong>
+          <div style="color:var(--muted)">2025–2027</div>
+        </div>
+
+        <div class="tl-item">
+          <strong>Bachelor in Economics — PSG College of Arts &amp; Science, Coimbatore</strong>
+          <div style="color:var(--muted)">2022–2025 · CGPA: 8.9</div>
+        </div>
+
+        <div class="tl-item">
+          <strong>12th ISC — Kodaikanal Public School</strong>
+          <div style="color:var(--muted)">90.25%</div>
+        </div>
+
+        <div class="tl-item">
+          <strong>10th ICSE — Kodaikanal Public School</strong>
+          <div style="color:var(--muted)">87.6%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience" class="wrap reveal" data-delay="160">
+      <div class="section-head">
+        <div class="kicker">EXPERIENCE</div>
+        <div class="section-title">Industry Exposure</div>
+      </div>
+
+      <div class="row">
+        <div class="col-2 panel">
+          <h4 style="margin:0 0 6px">Export Operation Intern — <span style="color:var(--muted)">SRIE Flora Garments</span></h4>
+          <div style="color:var(--muted);margin-bottom:10px">May 2024 – June 2024</div>
+          <ul style="margin:0;padding-left:18px">
+            <li>Improved manufacturing consistency through quality management interventions.</li>
+            <li>Contributed to standardized processes across production lines.</li>
+            <li>Achieved <strong>10% defect rate reduction</strong> via proactive issue resolution.</li>
+          </ul>
+        </div>
+
+        <div class="col-3 panel" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
+          <div style="color:var(--muted);margin-bottom:8px">Key Impact</div>
+          <div class="achievement">
+            <div class="stat" style="font-size:34px;font-weight:800;color:var(--accent)">10%</div>
+            <div style="text-align:left;color:var(--muted)">Reduction in defect rate</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CERTIFICATIONS -->
+    <section id="certifications" class="wrap reveal" data-delay="200">
+      <div class="section-head">
+        <div class="kicker">CERTIFICATIONS</div>
+        <div class="section-title">Credentials & Learning</div>
+      </div>
+
+      <div class="row">
+        <div class="col-2 panel">
+          <h5 style="margin:0 0 6px">Paper Presentation</h5>
+          <div style="color:var(--muted)">“Unveiling the Quantum: How Econophysics and Quantum Economics Are Solving Real World Economic Problems” — March 16, 2024</div>
+        </div>
+
+        <div class="col-3 panel">
+          <h5 style="margin:0 0 6px">SEBI Investor Certification</h5>
+          <div style="color:var(--muted)">Valid: Dec 2024 – Dec 2026</div>
+        </div>
+
+        <div class="col-2 panel">
+          <h5 style="margin:0 0 6px">Data Visualization</h5>
+          <div style="color:var(--muted)">Tata Group Virtual Experience — 2024</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="wrap reveal" data-delay="240">
+      <div class="section-head">
+        <div class="kicker">PROJECTS</div>
+        <div class="section-title">Selected Work</div>
+      </div>
+
+      <div class="projects-grid">
+        <article class="project-card panel">
+          <h4 style="margin:0 0 6px">A Study on Global Sugar Trade and its Influence on India’s Market Dynamics</h4>
+          <p style="margin:0;color:var(--muted)">Analyzed international trade flows, pricing, policies, and tariff structures. Assessed demand–supply dynamics and market trends; built practical economic interpretation skills.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS -->
+    <section id="achievements" class="wrap reveal" data-delay="280">
+      <div class="section-head">
+        <div class="kicker">ACHIEVEMENTS</div>
+        <div class="section-title">Milestones</div>
+      </div>
+
+      <div class="panel achievement">
+        <div class="text">
+          <h4 style="margin:0 0 6px">India Book of Records — Maximum Standing Jumps in One Minute</h4>
+          <p style="color:var(--muted);margin:0 0 6px">Performed 100 standing jumps at one place in one minute at the age of 16 years and 29 days, as confirmed on May 12, 2021.</p>
+          <p style="margin:0"><strong>Record statement:</strong> The record for performing the maximum number of standing jumps in one minute was set by <strong>R. Ragul Renganath</strong> (born April 13, 2005) of Kodaikanal, Tamil Nadu. He jumped <strong>100 times</strong> (at one place) in one minute at the age of <strong>16 years and 29 days</strong>, as confirmed on <strong>May 12, 2021</strong>.</p>
+        </div>
+
+        <div style="min-width:120px;text-align:center">
+          <div class="stat" data-target="100">0</div>
+          <div style="color:var(--muted);margin-top:6px">standing jumps</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills" class="wrap reveal" data-delay="320">
+      <div class="section-head">
+        <div class="kicker">SKILLS</div>
+        <div class="section-title">What I Work With</div>
+      </div>
+
+      <div class="row">
+        <div class="col-2 panel">
+          <h5 style="margin:0 0 12px">Core</h5>
+          <div class="skill"><div class="meta"><span>Quality Management</span><span>Advanced</span></div><div class="track"><div class="fill" data-width="90%"></div></div></div>
+          <div class="skill"><div class="meta"><span>Critical Thinking &amp; Logical Reasoning</span><span>Advanced</span></div><div class="track"><div class="fill" data-width="90%"></div></div></div>
+          <div class="skill"><div class="meta"><span>Creative Problem Solving</span><span>Advanced</span></div><div class="track"><div class="fill" data-width="88%"></div></div></div>
+          <div class="skill"><div class="meta"><span>Strategic Planning</span><span>Intermediate</span></div><div class="track"><div class="fill" data-width="80%"></div></div></div>
+        </div>
+
+        <aside class="col-3 panel">
+          <h5 style="margin:0 0 12px">Tools & Interests</h5>
+          <div class="skill"><div class="meta"><span>Video Editing & Digital Content</span><span>Intermediate</span></div><div class="track"><div class="fill" data-width="75%"></div></div></div>
+          <div style="margin-top:14px;color:var(--muted)">Also exploring productivity tools and prompt engineering for efficient workflows.</div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- HOBBIES -->
+    <section id="hobbies" class="wrap reveal" data-delay="360">
+      <div class="section-head">
+        <div class="kicker">HOBBIES &amp; INTERESTS</div>
+        <div class="section-title">Beyond Work</div>
+      </div>
+
+      <div class="row">
+        <div class="col-2 panel">
+          <h5 style="margin:0 0 6px">Videography & Cinematography</h5>
+          <p style="margin:0;color:var(--muted)">Exploring narrative, pacing and visual composition to communicate ideas clearly.</p>
+        </div>
+
+        <div class="col-3 panel">
+          <h5 style="margin:0 0 6px">Exploring Productivity Tools</h5>
+          <p style="margin:0;color:var(--muted)">Testing workflows and frameworks to optimize learning and output.</p>
+        </div>
+
+        <div class="col-2 panel">
+          <h5 style="margin:0 0 6px">Learning Prompt Engineering</h5>
+          <p style="margin:0;color:var(--muted)">Designing prompts to get reliable answers and insightful analyses from AI.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="wrap reveal" data-delay="400">
+      <div class="section-head">
+        <div class="kicker">CONTACT</div>
+        <div class="section-title">Let’s Connect</div>
+      </div>
+
+      <div class="panel">
+        <div style="display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between">
+          <ul class="contact-list" style="flex:1 1 320px">
+            <li><strong>Email:</strong> <a href="mailto:renganathr2135@gmail.com">renganathr2135@gmail.com</a></li>
+            <li><strong>Phone:</strong> <a href="tel:+919345884864">+91 93458 84864</a></li>
+            <li><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/ragul-renganath-r-7b73b2259" target="_blank" rel="noopener">linkedin.com/in/ragul-renganath-r-7b73b2259</a></li>
+            <li><strong>Location:</strong> Kodaikanal, Tamil Nadu, India</li>
+          </ul>
+
+          <div style="flex:0 0 260px;text-align:center">
+            <p style="margin:0 0 8px;color:var(--muted)">Open to opportunities in finance, analytics, and strategy.</p>
+            <a class="btn btn-primary" href="#contact">Message on Email</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div style="padding:14px 0;text-align:center;color:var(--muted)">© <span id="year"></span> R. Ragul Renganath · Designed with Passion</div>
+    </div>
+  </footer>
+
+  <!-- ===== Scripts: menu toggle, reveal, typing, counters, skills ===== -->
   <script>
-    /* Typing Animation */
-    const textArray = ["MBA Finance Student", "Aspiring Finance Professional", "Data-Driven Learner"];
-    let typingElement = document.getElementById("typing");
-    let arrayIndex = 0, charIndex = 0;
-    function type() {
-      if (charIndex < textArray[arrayIndex].length) {
-        typingElement.textContent += textArray[arrayIndex].charAt(charIndex);
-        charIndex++;
-        setTimeout(type, 120);
-      } else {
-        setTimeout(erase, 2000);
-      }
-    }
-    function erase() {
-      if (charIndex > 0) {
-        typingElement.textContent = textArray[arrayIndex].substring(0, charIndex-1);
-        charIndex--;
-        setTimeout(erase, 80);
-      } else {
-        arrayIndex = (arrayIndex + 1) % textArray.length;
-        setTimeout(type, 500);
-      }
-    }
-    document.addEventListener("DOMContentLoaded", () => type());
+    // Simple mobile menu toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
 
-    /* Scroll Reveal */
-    const sections = document.querySelectorAll("section");
-    const reveal = () => {
-      let triggerBottom = window.innerHeight * 0.8;
-      sections.forEach(sec => {
-        let secTop = sec.getBoundingClientRect().top;
-        if (secTop < triggerBottom) {
-          sec.classList.add("revealed");
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+      menuBtn.setAttribute('aria-expanded', navLinks.classList.contains('open'));
+    });
+
+    // Smooth reveal for items (IntersectionObserver)
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if(entry.isIntersecting){
+          const delay = parseInt(entry.target.getAttribute('data-delay')) || 0;
+          setTimeout(() => entry.target.classList.add('visible'), delay);
+          revealObserver.unobserve(entry.target);
         }
       });
-    };
-    window.addEventListener("scroll", reveal);
-    reveal();
+    }, {threshold: 0.18});
+    revealEls.forEach(el => revealObserver.observe(el));
 
-    /* Floating Particles Background */
-    const canvas = document.getElementById("particles");
-    const ctx = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    // Typing animation (headline)
+    (function typing(){
+      const target = document.getElementById('typeTarget');
+      const phrases = ['Aspiring Finance Professional','Economics Graduate','Data-driven Thinker','MBA Finance Candidate'];
+      let p = 0, i = 0, forward = true;
+      const typeSpeed = 60, backSpeed = 30, pause = 1000;
 
-    let particlesArray = [];
-    const numParticles = 80;
+      function tick(){
+        const str = phrases[p];
+        if(forward){
+          i++;
+          target.textContent = str.slice(0,i);
+          if(i === str.length){ forward = false; setTimeout(tick, pause); return; }
+        } else {
+          i--;
+          target.textContent = str.slice(0,i);
+          if(i === 0){ forward = true; p = (p+1) % phrases.length; }
+        }
+        setTimeout(tick, forward ? typeSpeed : backSpeed);
+      }
+      tick();
+    })();
 
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = (Math.random() - 0.5) * 1;
-        this.speedY = (Math.random() - 0.5) * 1;
+    // Counters (achievements)
+    (function counters(){
+      const els = document.querySelectorAll('[data-target]');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            const el = entry.target;
+            const target = +el.getAttribute('data-target');
+            const duration = 1200;
+            let start = null;
+            function frame(ts){
+              if(!start) start = ts;
+              const progress = Math.min((ts - start)/duration, 1);
+              el.textContent = Math.floor(progress * target);
+              if(progress < 1) requestAnimationFrame(frame);
+            }
+            requestAnimationFrame(frame);
+            obs.unobserve(el);
+          }
+        });
+      }, {threshold:0.4});
+      els.forEach(e => obs.observe(e));
+    })();
+
+    // Animate skill fills when visible
+    (function skillFill(){
+      const panel = document.getElementById('skills');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting){
+            document.querySelectorAll('.fill').forEach(el => {
+              el.style.width = el.getAttribute('data-width') || '60%';
+            });
+            observer.disconnect();
+          }
+        });
+      }, {threshold:0.25});
+      if(panel) observer.observe(panel);
+    })();
+
+    // Navbar link active on scroll
+    (function navActive(){
+      const links = document.querySelectorAll('.nav-link');
+      const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href')));
+      function onScroll(){
+        const pos = window.scrollY + window.innerHeight/3;
+        sections.forEach((sec, i) => {
+          if(!sec) return;
+          const top = sec.offsetTop, bottom = top + sec.offsetHeight;
+          if(pos >= top && pos < bottom){
+            links.forEach(l=>l.classList.remove('active'));
+            links[i].classList.add('active');
+          }
+        });
       }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-      }
-      draw() {
-        ctx.fillStyle = "#00c9ff";
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
-        ctx.fill();
-      }
+      window.addEventListener('scroll', onScroll, {passive:true});
+      onScroll();
+    })();
+
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Respect reduced motion preference
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
     }
-
-    function initParticles() {
-      particlesArray = [];
-      for (let i=0; i<numParticles; i++) {
-        particlesArray.push(new Particle());
-      }
-    }
-
-    function animateParticles() {
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      particlesArray.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animateParticles);
-    }
-
-    initParticles();
-    animateParticles();
-
-    window.addEventListener("resize", () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      initParticles();
-    });
   </script>
 </body>
 </html>
