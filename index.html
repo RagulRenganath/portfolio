@@ -1,541 +1,301 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Ragul Renganath R — Portfolio</title>
-  <meta name="description" content="R. Ragul Renganath — MBA Finance candidate. Portfolio: education, projects, certifications, achievements, skills." />
-  <meta name="theme-color" content="#1d2671" />
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ragul Renganath R - Portfolio</title>
   <style>
-    /* ---------- Base ---------- */
-    :root{
-      --bg1:#1d2671;
-      --bg2:#c33764;
-      --glass: rgba(255,255,255,0.06);
-      --muted: #e6e7ee;
-      --accent: #ffd700;
-      --accent2: #ff8a00;
-      --card-radius:18px;
+    /* --- Global Styles --- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0a0f1c;
+      color: #e6e6e6;
+      overflow-x: hidden;
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      min-height:100vh;
-      font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,Arial;
-      background: linear-gradient(135deg, var(--bg1), var(--bg2));
-      color:var(--muted);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow-x:hidden;
+    a { text-decoration: none; color: inherit; }
+
+    /* --- Navigation --- */
+    nav {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 50px;
+      background: rgba(10, 15, 28, 0.9);
+      z-index: 1000;
     }
-    a{color:inherit}
-    .container{max-width:1140px;margin:0 auto;padding:0 20px}
-
-    /* ---------- Particles Canvas (fills background) ---------- */
-    #bg-canvas{
-      position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.42;
-      mix-blend-mode:screen;
+    nav h1 {
+      color: #00c9ff;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+    }
+    nav ul {
+      display: flex;
+      list-style: none;
+    }
+    nav ul li {
+      margin-left: 25px;
+    }
+    nav ul li a {
+      color: #e6e6e6;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      color: #00c9ff;
     }
 
-    /* ---------- NAV ---------- */
-    nav{
-      position:fixed;left:0;right:0;top:12px;z-index:30;display:flex;justify-content:center;
-      padding:10px 20px;backdrop-filter:blur(8px);background:linear-gradient(90deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-      border-radius:999px;margin:0 12px;
-      box-shadow:0 6px 20px rgba(0,0,0,.2);
+    /* --- Hero Section --- */
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 1;
     }
-    nav ul{list-style:none;display:flex;gap:22px;margin:0;padding:6px 10px;align-items:center}
-    nav a{ text-decoration:none; color:var(--muted); font-weight:600; font-size:14px; padding:8px 10px; border-radius:8px; transition:all .28s;}
-    nav a:hover, nav a.active{ color:#091026; background:linear-gradient(90deg,#ffd700,#ffb84d); box-shadow:0 8px 28px rgba(255,184,77,.12); transform:translateY(-3px) scale(1.02) }
-
-    /* ---------- HERO ---------- */
-    .hero{
-      min-height:94vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 20px 60px;position:relative;z-index:2;
+    header h2 {
+      font-size: 2.5rem;
+      color: #fff;
     }
-    .hero .card{
-      max-width:920px;padding:48px;border-radius:24px;background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
-      border:1px solid rgba(255,255,255,.06); box-shadow:0 20px 60px rgba(0,0,0,.35);
-      transform:translateZ(0);
+    header h3 {
+      margin-top: 15px;
+      font-size: 1.2rem;
+      color: #00c9ff;
+      height: 30px;
     }
-    .tag{display:inline-flex;align-items:center;gap:.6rem;padding:.45rem .9rem;border-radius:999px;background:rgba(255,255,255,.02);color:var(--muted);font-weight:700;margin-bottom:14px}
-    h1.title{
-      font-size:clamp(1.6rem, 4vw, 3.2rem); line-height:1.02; font-weight:800; margin:6px 0 12px;
-      background:linear-gradient(90deg,var(--accent2),#ff4b6e); -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-      filter:drop-shadow(0 10px 30px rgba(0,0,0,.35));
+
+    /* --- Sections --- */
+    section {
+      padding: 100px 15%;
+      min-height: 100vh;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
     }
-    .subtitle{color:rgba(230,231,238,.88);font-size:clamp(.98rem,2vw,1.1rem);max-width:74ch;margin:0 auto 18px}
-
-    .cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:18px}
-    .btn{
-      display:inline-flex;align-items:center;gap:.6rem;padding:.68rem 1.05rem;border-radius:12px;font-weight:700;text-decoration:none;border:0;cursor:pointer;
-      transition:all .25s cubic-bezier(.2,.9,.3,1);
+    section.revealed {
+      opacity: 1;
+      transform: translateY(0);
     }
-    .btn-primary{background:linear-gradient(90deg,var(--accent2),#ff4b6e);color:#081025;box-shadow:0 12px 40px rgba(255,76,110,.12)}
-    .btn-outline{background:transparent;border:1px solid rgba(255,255,255,.06);color:var(--muted)}
-    .btn:hover{transform:translateY(-4px);}
+    h2.section-title {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #00c9ff;
+    }
+    p {
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
 
-    /* ---------- Sections ---------- */
-    section{padding:86px 0;position:relative;z-index:2}
-    .section-head{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-bottom:22px}
-    .kicker{color:var(--accent);font-weight:800;letter-spacing:.18em;font-size:.82rem}
-    .section-title{font-size:1.6rem;font-weight:800;color:#fff}
+    /* --- About --- */
+    #about {
+      background: #11162a;
+      border-radius: 15px;
+    }
 
-    /* panels */
-    .panel{background:rgba(255,255,255,.03);padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,.04)}
-    .grid-2{display:grid;grid-template-columns:1fr;gap:20px}
-    @media(min-width:880px){ .grid-2{grid-template-columns:1fr 420px} }
+    /* --- Projects --- */
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+    .project {
+      background: #11162a;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: 0.3s;
+    }
+    .project:hover {
+      transform: translateY(-8px);
+      background: #0e1324;
+    }
 
-    /* timeline */
-    .timeline{position:relative;padding-left:18px}
-    .timeline::before{content:'';position:absolute;left:6px;top:0;width:3px;height:100%;background:linear-gradient(180deg,var(--accent),transparent)}
-    .time-item{position:relative;padding:10px 0 20px 16px}
-    .time-item::before{content:'';position:absolute;left:-4px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--accent);box-shadow:0 8px 24px rgba(255,209,102,.12)}
+    /* --- Contact --- */
+    #contact {
+      text-align: center;
+    }
+    #contact a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      border: 1px solid #00c9ff;
+      border-radius: 8px;
+      transition: 0.3s;
+      color: #00c9ff;
+    }
+    #contact a:hover {
+      background: #00c9ff;
+      color: #0a0f1c;
+    }
 
-    /* projects */
-    .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
-
-    /* skills */
-    .skill{margin-bottom:14px}
-    .skill .meta{display:flex;justify-content:space-between;font-weight:700;color:rgba(230,231,238,.8);margin-bottom:6px}
-    .skill .track{height:12px;background:rgba(255,255,255,.02);border-radius:999px;overflow:hidden;border:1px solid rgba(255,255,255,.03)}
-    .skill .fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),#ffe39a);transition:width 1100ms cubic-bezier(.2,.7,.1,1)}
-
-    /* achievements */
-    .achievement-cta{display:flex;gap:20px;align-items:center;justify-content:center;flex-wrap:wrap}
-    .big-num{font-weight:900;font-size:44px;color:var(--accent)}
-
-    /* contact */
-    .contact-grid{display:grid;gap:18px}
-    @media(min-width:780px){ .contact-grid{grid-template-columns:1fr 1fr} }
-
-    /* reveal class for scroll reveal */
-    .reveal{opacity:0;transform:translateY(18px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.85,.2,1)}
-    .reveal.revealed{opacity:1;transform:none}
-
-    /* footer */
-    footer{padding:28px 0;text-align:center;color:rgba(230,231,238,.7);font-size:14px;z-index:2}
-
-    /* small screens tweaks */
-    @media(max-width:520px){
-      nav{padding:8px 12px}
-      nav ul{gap:12px}
-      .hero{padding:100px 12px}
-      .hero .card{padding:28px;border-radius:14px}
+    /* --- Canvas Background --- */
+    #particles {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
     }
   </style>
 </head>
 <body>
 
-  <!-- Particles background canvas -->
-  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <!-- Particle Background -->
+  <canvas id="particles"></canvas>
 
-  <!-- Top nav (no left name/logo) -->
-  <nav role="navigation" aria-label="Main">
+  <!-- Navigation -->
+  <nav>
+    <h1>Ragul Renganath R</h1>
     <ul>
-      <li><a href="#home" class="nav-link">Home</a></li>
-      <li><a href="#about" class="nav-link">About</a></li>
-      <li><a href="#education" class="nav-link">Education</a></li>
-      <li><a href="#projects" class="nav-link">Projects</a></li>
-      <li><a href="#achievements" class="nav-link">Achievements</a></li>
-      <li><a href="#contact" class="nav-link">Contact</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- HERO -->
-  <header id="home" class="hero">
-    <div class="card container" role="banner" aria-labelledby="hero-title">
-      <div class="tag">MBA Finance Candidate · Economics Graduate</div>
-      <h1 id="hero-title" class="title">R. Ragul Renganath — <span id="typed-text" aria-hidden="true"></span><span id="cursor">|</span></h1>
-      <p class="subtitle">I blend economics, data, and strategic thinking to design financial solutions—now pursuing an MBA in Finance at Amrita School of Business. Explore my projects, certifications, and achievements below.</p>
-
-      <div class="cta-row">
-        <a class="btn btn-primary" href="#projects" role="button">Explore Projects</a>
-        <a class="btn btn-outline" href="#contact" role="button">Contact</a>
-        <a class="btn btn-outline" href="https://limewire.com/d/f83qZ#3cAp0noor8" target="_blank" rel="noopener noreferrer">Resume (PDF)</a>
-      </div>
-    </div>
+  <!-- Hero -->
+  <header>
+    <h2>Hello, I'm <span style="color:#00c9ff;">Ragul</span></h2>
+    <h3 id="typing"></h3>
   </header>
 
-  <!-- ABOUT -->
+  <!-- About -->
   <section id="about">
-    <div class="container">
-      <div class="section-head reveal">
-        <div class="kicker">ABOUT</div>
-        <div class="section-title">From Economics to Corporate Finance</div>
-      </div>
-
-      <div class="grid-2">
-        <div class="panel reveal">
-          <p><strong>Born and raised in Kodaikanal.</strong> I completed my UG in Economics from PSG College of Arts & Science (CGPA 8.9) and transitioned to MBA (Finance) to merge macro thinking with corporate finance and analytics. I value analytical clarity and creative problem solving.</p>
-          <p style="margin-top:12px">My aim is to convert complex data into strategic decisions that drive measurable business impact.</p>
-        </div>
-
-        <aside class="panel reveal" aria-label="Key highlights">
-          <strong style="display:block;margin-bottom:10px">Key highlights</strong>
-          <ul style="margin:0;padding-left:18px;line-height:1.65;color:rgba(230,231,238,.86)">
-            <li>UG Economics — PSG College (Distinction)</li>
-            <li>MBA (Finance) — Amrita School of Business (2025–2027)</li>
-            <li>Data-driven approach & strategic planner</li>
-            <li>Videography, content creation & prompt-engineering</li>
-          </ul>
-        </aside>
-      </div>
-    </div>
+    <h2 class="section-title">About Me</h2>
+    <p>I am currently pursuing an MBA in Finance at Amrita School of Business, with a background in Economics. My academic journey has shaped my analytical mindset, and my passion lies in blending finance with technology to create impactful solutions.</p>
+    <p>I believe in continuous learning and adapting to the evolving business landscape while striving for excellence in every endeavor.</p>
   </section>
 
-  <!-- EDUCATION -->
-  <section id="education" class="reveal">
-    <div class="container">
-      <div class="section-head reveal">
-        <div class="kicker">EDUCATION</div>
-        <div class="section-title">Academic Timeline</div>
-      </div>
-
-      <div class="panel timeline reveal">
-        <div class="time-item">
-          <strong>MBA in Finance — Amrita School of Business, Coimbatore</strong><div style="color:rgba(230,231,238,.7)">2025–2027</div>
-        </div>
-        <div class="time-item">
-          <strong>Bachelor in Economics — PSG College of Arts & Science, Coimbatore</strong><div style="color:rgba(230,231,238,.7)">2022–2025 · CGPA: 8.9</div>
-        </div>
-        <div class="time-item">
-          <strong>12th ISC — Kodaikanal Public School</strong><div style="color:rgba(230,231,238,.7)">90.25%</div>
-        </div>
-        <div class="time-item">
-          <strong>10th ICSE — Kodaikanal Public School</strong><div style="color:rgba(230,231,238,.7)">87.6%</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJECTS -->
+  <!-- Projects -->
   <section id="projects">
-    <div class="container">
-      <div class="section-head reveal">
-        <div class="kicker">PROJECTS</div>
-        <div class="section-title">Selected Work</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects">
+      <div class="project">
+        <h3>Fund Accounting Simulation</h3>
+        <p>A structured project exploring fund accounting processes, NAV calculation, and corporate actions.</p>
       </div>
-
-      <div class="projects-grid">
-        <article class="panel reveal">
-          <h4 style="margin:0 0 8px">A Study on Global Sugar Trade</h4>
-          <p style="margin:0;color:rgba(230,231,238,.78)">Analyzed trade flows, pricing and policy impacts to assess India’s market positioning.</p>
-        </article>
-
-        <article class="panel reveal">
-          <h4 style="margin:0 0 8px">Data Visualization — Tata Virtual Experience</h4>
-          <p style="margin:0;color:rgba(230,231,238,.78)">Visual storytelling to turn numbers into clear business recommendations.</p>
-        </article>
-
-        <article class="panel reveal">
-          <h4 style="margin:0 0 8px">Quality Management Improvement</h4>
-          <p style="margin:0;color:rgba(230,231,238,.78)">Internship work that reduced defect rates by 10% via process interventions.</p>
-        </article>
+      <div class="project">
+        <h3>Market Segmentation Analysis</h3>
+        <p>Applied statistical and machine learning techniques to cluster consumer data and derive insights.</p>
+      </div>
+      <div class="project">
+        <h3>Business Communication Report</h3>
+        <p>Comprehensive research on communication strategies for effective management decision-making.</p>
       </div>
     </div>
   </section>
 
-  <!-- ACHIEVEMENTS -->
-  <section id="achievements">
-    <div class="container">
-      <div class="section-head reveal">
-        <div class="kicker">ACHIEVEMENTS</div>
-        <div class="section-title">Milestones</div>
-      </div>
-
-      <div class="panel reveal" style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
-        <div style="flex:1;min-width:240px">
-          <h4 style="margin:0 0 6px"><span style="color:var(--accent)">🏆</span> India Book of Records</h4>
-          <p style="margin:6px 0;color:rgba(230,231,238,.82)">Maximum standing jumps performed in one minute by a teen — <strong>100 jumps</strong> at age 16 years &amp; 29 days (confirmed May 12, 2021).</p>
-        </div>
-
-        <div style="flex:0 0 160px;text-align:center">
-          <div class="big-num" data-target="100">0</div>
-          <div style="color:rgba(230,231,238,.7)">standing jumps</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills">
-    <div class="container">
-      <div class="section-head reveal">
-        <div class="kicker">SKILLS</div>
-        <div class="section-title">What I Work With</div>
-      </div>
-
-      <div class="grid-2">
-        <div class="panel reveal">
-          <div class="skill"><div class="meta"><span>Quality Management</span><span>Advanced</span></div><div class="track"><div class="fill" data-width="90%"></div></div></div>
-          <div class="skill"><div class="meta"><span>Critical Thinking &amp; Reasoning</span><span>Advanced</span></div><div class="track"><div class="fill" data-width="90%"></div></div></div>
-          <div class="skill"><div class="meta"><span>Creative Problem Solving</span><span>Advanced</span></div><div class="track"><div class="fill" data-width="88%"></div></div></div>
-          <div class="skill"><div class="meta"><span>Strategic Planning</span><span>Intermediate</span></div><div class="track"><div class="fill" data-width="80%"></div></div></div>
-        </div>
-
-        <aside class="panel reveal">
-          <h4 style="margin-top:0">Tools & Interests</h4>
-          <div class="skill"><div class="meta"><span>Video Editing & Content</span><span>Intermediate</span></div><div class="track"><div class="fill" data-width="75%"></div></div></div>
-          <div style="margin-top:12px;color:rgba(230,231,238,.78)">Also exploring productivity systems, prompt-engineering and data viz techniques.</div>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
+  <!-- Contact -->
   <section id="contact">
-    <div class="container">
-      <div class="section-head reveal">
-        <div class="kicker">CONTACT</div>
-        <div class="section-title">Let’s Connect</div>
-      </div>
-
-      <div class="contact-grid">
-        <div class="panel reveal">
-          <p style="margin:0 0 8px"><strong>Email</strong></p>
-          <p style="margin:0 0 14px"><a href="mailto:renganathr2135@gmail.com" style="color:var(--muted)">renganathr2135@gmail.com</a></p>
-
-          <p style="margin:0 0 8px"><strong>Phone</strong></p>
-          <p style="margin:0 0 14px"><a href="tel:+919345884864" style="color:var(--muted)">+91 93458 84864</a></p>
-
-          <p style="margin:0 0 8px"><strong>LinkedIn</strong></p>
-          <p style="margin:0 0 14px"><a href="https://www.linkedin.com/in/ragul-renganath-r-7b73b2259" target="_blank" rel="noopener" style="color:var(--muted)">linkedin.com/in/ragul-renganath-r-7b73b2259</a></p>
-        </div>
-
-        <div class="panel reveal">
-          <h4 style="margin-top:0">Quick note</h4>
-          <p style="margin:0;color:rgba(230,231,238,.85)">Open to roles in finance, analytics, and strategy. I enjoy opportunities where quantitative analysis and storytelling intersect.</p>
-
-          <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap">
-            <a class="btn btn-primary" href="https://limewire.com/d/f83qZ#3cAp0noor8" target="_blank" rel="noopener noreferrer">Download Resume</a>
-            <a class="btn btn-outline" href="#projects">View Projects</a>
-          </div>
-        </div>
-      </div>
-    </div>
+    <h2 class="section-title">Contact</h2>
+    <p>Let’s connect and collaborate:</p>
+    <a href="mailto:ragulrenganathr@example.com">Email</a>
+    <a href="https://www.linkedin.com/in/ragul-renganath-r-7b73b2259" target="_blank">LinkedIn</a>
+    <a href="https://github.com/RagulRenganath" target="_blank">GitHub</a>
   </section>
 
-  <footer role="contentinfo">
-    <div class="container">
-      © <span id="year"></span> R. Ragul Renganath · Designed with Passion
-    </div>
-  </footer>
-
-  <!-- ---------- Scripts: Typing, Scroll Reveal, Counters, Particle Background ---------- -->
+  <!-- Scripts -->
   <script>
-    /* ---------- Typing Animation (loop of short phrases) ---------- */
-    (function typing(){
-      const el = document.getElementById('typed-text');
-      const cursor = document.getElementById('cursor');
-      const phrases = [
-        'Aspiring Finance Professional',
-        'Economics Graduate',
-        'Data-driven Thinker',
-        'MBA Finance Candidate'
-      ];
-      let pi = 0, ci = 0, forward = true, wait = 900;
+    /* Typing Animation */
+    const textArray = ["MBA Finance Student", "Aspiring Finance Professional", "Data-Driven Learner"];
+    let typingElement = document.getElementById("typing");
+    let arrayIndex = 0, charIndex = 0;
+    function type() {
+      if (charIndex < textArray[arrayIndex].length) {
+        typingElement.textContent += textArray[arrayIndex].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, 120);
+      } else {
+        setTimeout(erase, 2000);
+      }
+    }
+    function erase() {
+      if (charIndex > 0) {
+        typingElement.textContent = textArray[arrayIndex].substring(0, charIndex-1);
+        charIndex--;
+        setTimeout(erase, 80);
+      } else {
+        arrayIndex = (arrayIndex + 1) % textArray.length;
+        setTimeout(type, 500);
+      }
+    }
+    document.addEventListener("DOMContentLoaded", () => type());
 
-      function step(){
-        const phrase = phrases[pi];
-        if(forward){
-          ci++;
-          el.textContent = phrase.slice(0, ci);
-          if(ci === phrase.length){ forward=false; setTimeout(step, wait); return; }
-        } else {
-          ci--;
-          el.textContent = phrase.slice(0, ci);
-          if(ci === 0){ forward = true; pi = (pi+1) % phrases.length; }
+    /* Scroll Reveal */
+    const sections = document.querySelectorAll("section");
+    const reveal = () => {
+      let triggerBottom = window.innerHeight * 0.8;
+      sections.forEach(sec => {
+        let secTop = sec.getBoundingClientRect().top;
+        if (secTop < triggerBottom) {
+          sec.classList.add("revealed");
         }
-        setTimeout(step, forward ? 60 : 28);
+      });
+    };
+    window.addEventListener("scroll", reveal);
+    reveal();
+
+    /* Floating Particles Background */
+    const canvas = document.getElementById("particles");
+    const ctx = canvas.getContext("2d");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    let particlesArray = [];
+    const numParticles = 80;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = (Math.random() - 0.5) * 1;
+        this.speedY = (Math.random() - 0.5) * 1;
       }
-
-      // cursor blink
-      setInterval(()=>{ cursor.style.opacity = (cursor.style.opacity === '0' ? '1' : '0') }, 500);
-      step();
-    })();
-
-    /* ---------- Scroll reveal using IntersectionObserver ---------- */
-    (function revealOnScroll(){
-      const obs = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            entry.target.classList.add('revealed');
-            obs.unobserve(entry.target);
-          }
-        });
-      }, {threshold:0.18});
-      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    })();
-
-    /* ---------- Animate skill fills when visible ---------- */
-    (function skillAnimate(){
-      const skillObs = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            entry.target.querySelectorAll('.fill').forEach(f=>{
-              f.style.width = f.getAttribute('data-width') || '60%';
-            });
-            skillObs.unobserve(entry.target);
-          }
-        });
-      }, {threshold:0.25});
-      document.querySelectorAll('#skills .panel, #skills .reveal, #skills').forEach(el => skillObs.observe(el));
-    })();
-
-    /* ---------- Counter animation (achievements) ---------- */
-    (function counters(){
-      const els = document.querySelectorAll('[data-target]');
-      const io = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          if(entry.isIntersecting){
-            const el = entry.target;
-            const target = +el.getAttribute('data-target');
-            const duration = 1100;
-            let start = null;
-            const step = (ts)=>{
-              if(!start) start = ts;
-              const progress = Math.min((ts - start) / duration, 1);
-              el.textContent = Math.floor(progress * target);
-              if(progress < 1) requestAnimationFrame(step);
-            };
-            requestAnimationFrame(step);
-            io.unobserve(el);
-          }
-        });
-      }, {threshold:0.4});
-      els.forEach(e => io.observe(e));
-    })();
-
-    /* ---------- Navbar active link on scroll ---------- */
-    (function navActive(){
-      const links = document.querySelectorAll('nav a.nav-link');
-      const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href')));
-      function onScroll(){
-        const pos = window.scrollY + window.innerHeight/3;
-        sections.forEach((sec,i)=>{
-          if(!sec) return;
-          const top = sec.offsetTop, bottom = top + sec.offsetHeight;
-          if(pos >= top && pos < bottom){
-            links.forEach(l => l.classList.remove('active'));
-            links[i].classList.add('active');
-          }
-        });
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
       }
-      window.addEventListener('scroll', onScroll, {passive:true});
-      onScroll();
-    })();
-
-    /* ---------- Particle Background: lightweight canvas system ---------- */
-    (function particles(){
-      const canvas = document.getElementById('bg-canvas');
-      const ctx = canvas.getContext('2d');
-      let w = canvas.width = innerWidth;
-      let h = canvas.height = innerHeight;
-      const particles = [];
-      const count = Math.round((w*h) / 65000); // density
-
-      function rand(min,max){ return Math.random() * (max - min) + min; }
-      function init(){
-        particles.length = 0;
-        for(let i=0;i<count;i++){
-          particles.push({
-            x: rand(0,w),
-            y: rand(0,h),
-            r: rand(0.9,2.4),
-            vx: rand(-0.25,0.25),
-            vy: rand(-0.15,0.15),
-            hue: rand(200,340),
-            life: rand(40,220)
-          });
-        }
+      draw() {
+        ctx.fillStyle = "#00c9ff";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI*2);
+        ctx.fill();
       }
+    }
 
-      function resize(){
-        w = canvas.width = innerWidth;
-        h = canvas.height = innerHeight;
-        init();
+    function initParticles() {
+      particlesArray = [];
+      for (let i=0; i<numParticles; i++) {
+        particlesArray.push(new Particle());
       }
-      addEventListener('resize', () => { resize(); });
+    }
 
-      function draw(){
-        ctx.clearRect(0,0,w,h);
-        // subtle gradient overlay for depth
-        const g = ctx.createLinearGradient(0,0,w,h);
-        g.addColorStop(0, 'rgba(255,255,255,0)');
-        g.addColorStop(1, 'rgba(0,0,0,0.12)');
-        ctx.fillStyle = g;
-        ctx.fillRect(0,0,w,h);
+    function animateParticles() {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particlesArray.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animateParticles);
+    }
 
-        for(const p of particles){
-          p.x += p.vx;
-          p.y += p.vy;
-          p.life -= 0.2;
-          if(p.x < -10) p.x = w + 10;
-          if(p.x > w + 10) p.x = -10;
-          if(p.y < -10) p.y = h + 10;
-          if(p.y > h + 10) p.y = -10;
-          if(p.life <= 0){ p.x = rand(0,w); p.y = rand(0,h); p.life = rand(40,220); }
+    initParticles();
+    animateParticles();
 
-          // draw glow
-          ctx.beginPath();
-          const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 8);
-          grad.addColorStop(0, `hsla(${p.hue}, 100%, 65%, 0.18)`);
-          grad.addColorStop(0.3, `hsla(${p.hue}, 85%, 55%, 0.09)`);
-          grad.addColorStop(1, `rgba(255,255,255,0)`);
-          ctx.fillStyle = grad;
-          ctx.arc(p.x, p.y, p.r * 10, 0, Math.PI * 2);
-          ctx.fill();
-
-          // tiny particle center
-          ctx.beginPath();
-          ctx.fillStyle = `hsla(${p.hue}, 90%, 60%, 0.92)`;
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-          ctx.fill();
-        }
-
-        // occasional connecting lines
-        for(let i=0;i<particles.length;i++){
-          for(let j=i+1;j<particles.length;j++){
-            const a = particles[i], b = particles[j];
-            const dx = a.x - b.x, dy = a.y - b.y;
-            const d = Math.sqrt(dx*dx + dy*dy);
-            if(d < 110){
-              ctx.beginPath();
-              ctx.strokeStyle = `rgba(255,255,255,${Math.max(0, 0.08 - (d/1400))})`;
-              ctx.lineWidth = 0.6;
-              ctx.moveTo(a.x, a.y);
-              ctx.lineTo(b.x, b.y);
-              ctx.stroke();
-            }
-          }
-        }
-
-        requestAnimationFrame(draw);
-      }
-
-      init();
-      draw();
-    })();
-
-    /* ---------- Set year ---------- */
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    /* ---------- Accessibility: reduce animation if user prefers reduced motion ---------- */
-    (function respectReducedMotion(){
-      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-        // disable particle animation by removing canvas draw loop gracefully: simplest approach - hide canvas
-        const c = document.getElementById('bg-canvas');
-        if(c) c.style.display = 'none';
-        // stop cursor blink
-        const cursor = document.getElementById('cursor');
-        if(cursor) cursor.style.display = 'none';
-      }
-    })();
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      initParticles();
+    });
   </script>
 </body>
 </html>
