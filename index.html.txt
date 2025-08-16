@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ragul Renganath R - Portfolio</title>
+  <style>
+    /* Import Google Fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #1d2671, #c33764);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      display: flex;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 15px 0;
+      z-index: 1000;
+    }
+
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #fff;
+      transition: 0.3s;
+      font-size: 16px;
+    }
+
+    nav ul li a:hover {
+      color: #ffd700;
+      text-shadow: 0px 0px 8px #ffd700;
+    }
+
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, #ff8a00, #e52e71);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeInUp 1.2s ease;
+    }
+
+    .hero h3 {
+      margin-top: 15px;
+      font-size: 1.5rem;
+      color: #eee;
+      animation: fadeInUp 1.6s ease;
+    }
+
+    .hero a {
+      margin-top: 30px;
+      padding: 12px 30px;
+      background: linear-gradient(45deg, #ff512f, #dd2476);
+      border-radius: 30px;
+      text-decoration: none;
+      color: #fff;
+      font-weight: 600;
+      font-size: 18px;
+      transition: 0.4s ease;
+      animation: fadeInUp 2s ease;
+    }
+
+    .hero a:hover {
+      background: linear-gradient(45deg, #dd2476, #ff512f);
+      transform: scale(1.1);
+    }
+
+    /* About */
+    section {
+      padding: 100px 80px;
+    }
+
+    .about {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 50px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.2);
+      animation: fadeIn 1.5s ease;
+    }
+
+    .about h2 {
+      font-size: 2.5rem;
+      color: #ffd700;
+      margin-bottom: 20px;
+    }
+
+    .about p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #f5f5f5;
+    }
+
+    /* Portfolio */
+    .portfolio {
+      text-align: center;
+    }
+
+    .portfolio h2 {
+      font-size: 2.5rem;
+      margin-bottom: 50px;
+      color: #ffd700;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .portfolio-card {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      transition: 0.3s;
+    }
+
+    .portfolio-card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.4);
+    }
+
+    .portfolio-card h3 {
+      margin-bottom: 10px;
+      color: #ff8a00;
+    }
+
+    /* Contact */
+    .contact {
+      text-align: center;
+    }
+
+    .contact h2 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #ffd700;
+    }
+
+    .contact p {
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .contact a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 30px;
+      background: linear-gradient(45deg, #36d1dc, #5b86e5);
+      border-radius: 30px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+
+    .contact a:hover {
+      background: linear-gradient(45deg, #5b86e5, #36d1dc);
+      transform: scale(1.1);
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      font-size: 14px;
+      color: #ccc;
+      margin-top: 50px;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <ul>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <h1>Ragul Renganath R</h1>
+    <h3>MBA Finance Student | Aspiring Business Leader</h3>
+    <a href="https://limewire.com/d/f83qZ#3cAp0noor8" target="_blank">View My Resume</a>
+  </section>
+
+  <!-- About -->
+  <section class="about" id="about">
+    <h2>About Me</h2>
+    <p>
+      I am an MBA student specializing in Finance at Amrita School of Business, with a strong academic foundation in Economics. My journey is driven by curiosity, discipline, and a vision to contribute meaningfully to the world of finance and strategy. 
+    </p>
+  </section>
+
+  <!-- Portfolio -->
+  <section class="portfolio" id="portfolio">
+    <h2>My Work</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <h3>Data Analytics Project</h3>
+        <p>Exploring customer segmentation using advanced statistical tools.</p>
+      </div>
+      <div class="portfolio-card">
+        <h3>Research Study</h3>
+        <p>A study on global sugar trade and its influence on Indian markets.</p>
+      </div>
+      <div class="portfolio-card">
+        <h3>Business Case Analysis</h3>
+        <p>Analyzed real-world financial scenarios and presented strategies.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <h2>Get In Touch</h2>
+    <p>Email: ragulrenganath@example.com</p>
+    <p>LinkedIn: linkedin.com/in/ragul-renganath-r</p>
+    <a href="mailto:ragulrenganath@example.com">Send a Message</a>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Ragul Renganath R | Designed with passion</p>
+  </footer>
+
+</body>
+</html>
