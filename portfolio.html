@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RAGUL RENGANATH's Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Fonts and Tailwind CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn { animation: fadeIn 1s ease-out; }
+        .animate-slideInLeft {
+            animation: slideInLeft 0.8s ease-out;
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .animate-slideInRight {
+            animation: slideInRight 0.8s ease-out;
+        }
+        @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        .nav-link.active {
+            border-bottom-color: #4f46e5;
+            color: #4f46e5;
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+    <!-- React and Babel CDNs -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="transition-colors duration-500">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+        const { createRoot } = ReactDOM;
+
+        // Resume data is hard-coded for a single-file application.
+        const resumeData = {
+            name: "RAGUL RENGANATH",
+            title: "MBA Finance Candidate",
+            professionalSummary: "Motivated MBA Finance candidate (2025-2027) at Amrita School of Business, Coimbatore, with a strong foundation in Economics (B.A., PSG College of Arts & Science, 2022-2025). Experienced in export operations through an industry internship and currently developing skills in data analysis, customer basket analysis, and text mining with applications in finance and business decision-making. Actively involved in editorial work, student clubs, and digital content creation, while building expertise in finance, capital markets, and business analytics.",
+            contact: {
+                email: "renganathr2135@gmail.com",
+                phone: "9345884864",
+                linkedin: "https://www.linkedin.com/in/ragul-renganath-r-7b73b2259",
+            },
+            education: [
+                {
+                    degree: "Master of Business Administration (Finance)",
+                    institution: "Amrita School of Business, Coimbatore",
+                    years: "2025-2027"
+                },
+                {
+                    degree: "Bachelor in Economics",
+                    institution: "PSG College of Arts & Science, Coimbatore",
+                    years: "2022-2025"
+                },
+                {
+                    degree: "12th ISC Board",
+                    institution: "Kodaikanal Public School, Kodaikanal",
+                    years: "2021-2022"
+                },
+                {
+                    degree: "10th ICSE Board",
+                    institution: "Kodaikanal Public School, Kodaikanal",
+                    years: "2019-2020"
+                }
+            ],
+            experience: [
+                {
+                    position: "Export Operation Intern",
+                    company: "SRIE FLORA GARMENTS",
+                    date: "May 2024 - June 2024",
+                    description: [
+                        "Assisted the Quality Management team in identifying and reducing recurring defects in export-related production processes.",
+                        "Contributed to process standardization across production lines to ensure consistency and quality.",
+                        "Supported improvement initiatives that strengthened quality control and reduced errors."
+                    ]
+                }
+            ],
+            projects: [
+                {
+                    title: "A Study on Global Sugar Trade and its Influence on India's Market Dynamics",
+                    description: "Analyzed global sugar trade patterns and their impact on the Indian sugar industry. Evaluated key factors such as pricing, trade policies, and tariff structures. Studied demand-supply dynamics and international market trends. Gained hands-on experience in economic research, data collection, and analytical interpretation.",
+                    link: "global-sugar-trade-report.pdf"
+                },
+                {
+                    title: "Motivation, Values, and Ethics of Individuals Working in the NGO Sector",
+                    description: "Conducted a qualitative study using snowball sampling and interviews across NGOs. Found that motivation was driven by purpose, value alignment, and fulfilment through social impact.",
+                    link: "ngo-motivation-report.pdf"
+                }
+            ],
+            skills: [
+                "Market Basket Analysis",
+                "Text Mining using R Programming",
+                "Creative Problem Solving",
+                "Strategic Planning",
+                "Data Visualization",
+                "Business Insights",
+                "Analytical Thinking",
+                "Videography and Cinematography",
+                "Video editing and Creative writing",
+                "Exploring digital productivity and AI tools",
+                "Learning prompt engineering"
+            ],
+            certifications: [
+                {
+                    title: "Paper Presentation - National Conference on Quantum Economics",
+                    issuer: "Department of Economics, PSG College of Arts & Science",
+                    date: "March 16, 2024",
+                    description: "Title: 'Unveiling the Quantum: How Econophysics and Quantum Economics Are Solving Real World Economic Problems'"
+                },
+                {
+                    title: "Data Visualization: Empowering Business with Effective Insights",
+                    issuer: "Tata Group (via Forage Virtual Experience)",
+                    date: "2024"
+                }
+            ],
+            achievements: [
+                {
+                    title: "India Book of Records",
+                    description: "Maximum Standing Jumps Performed in One Minute by a Teen. Achieved 100 standing jumps in one minute, recognized as a national record.",
+                    date: "May 2021"
+                }
+            ]
+        };
+
+        const App = () => {
+            const [darkMode, setDarkMode] = useState(false);
+            const [activeSection, setActiveSection] = useState('');
+
+            const heroRef = useRef(null);
+            const aboutRef = useRef(null);
+            const educationRef = useRef(null);
+            const projectsRef = useRef(null);
+            const skillsRef = useRef(null);
+            const contactRef = useRef(null);
+
+            useEffect(() => {
+                const sections = [
+                    { id: 'hero', ref: heroRef },
+                    { id: 'about', ref: aboutRef },
+                    { id: 'education', ref: educationRef },
+                    { id: 'projects', ref: projectsRef },
+                    { id: 'skills', ref: skillsRef },
+                    { id: 'contact', ref: contactRef }
+                ];
+
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (entry.isIntersecting) {
+                                setActiveSection(entry.target.id);
+                            }
+                        });
+                    },
+                    {
+                        threshold: 0.5,
+                        rootMargin: '-50% 0px -50% 0px'
+                    }
+                );
+
+                sections.forEach(section => {
+                    if (section.ref.current) {
+                        observer.observe(section.ref.current);
+                    }
+                });
+
+                return () => {
+                    sections.forEach(section => {
+                        if (section.ref.current) {
+                            observer.unobserve(section.ref.current);
+                        }
+                    });
+                };
+            }, []);
+
+            const scrollToSection = (id) => {
+                const section = document.getElementById(id);
+                if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                }
+            };
+
+            const lightModeClasses = {
+                bg: 'bg-white',
+                text: 'text-gray-900',
+                cardBg: 'bg-gray-100',
+                cardText: 'text-gray-800',
+                navBg: 'bg-white/80 backdrop-blur-md',
+                navText: 'text-gray-600',
+                navHover: 'text-gray-900',
+                toggleBg: 'bg-gray-200',
+                toggleIcon: 'text-gray-800'
+            };
+
+            const darkModeClasses = {
+                bg: 'bg-gray-900',
+                text: 'text-gray-100',
+                cardBg: 'bg-gray-800',
+                cardText: 'text-gray-200',
+                navBg: 'bg-gray-900/80 backdrop-blur-md',
+                navText: 'text-gray-400',
+                navHover: 'text-gray-100',
+                toggleBg: 'bg-gray-700',
+                toggleIcon: 'text-white'
+            };
+
+            const classes = darkMode ? darkModeClasses : lightModeClasses;
+
+            return (
+                <div className={`${classes.bg} ${classes.text} font-sans min-h-screen transition-colors duration-500`}>
+                    {/* Sticky Navigation */}
+                    <nav className={`fixed top-0 w-full z-50 p-4 shadow-lg ${classes.navBg} transition-colors duration-500`}>
+                        <div className="container mx-auto flex justify-between items-center">
+                            <a href="#hero" className={`text-xl font-bold ${classes.navHover}`}>
+                                {resumeData.name.split(' ')[0]}
+                            </a>
+                            <div className="hidden md:flex space-x-8 items-center">
+                                <a href="#about" onClick={() => scrollToSection('about')} className={`nav-link font-medium ${activeSection === 'about' ? 'active' : classes.navText} ${classes.navHover} hover:scale-105 transition-all duration-300`}>About</a>
+                                <a href="#education" onClick={() => scrollToSection('education')} className={`nav-link font-medium ${activeSection === 'education' ? 'active' : classes.navText} ${classes.navHover} hover:scale-105 transition-all duration-300`}>Education & Experience</a>
+                                <a href="#projects" onClick={() => scrollToSection('projects')} className={`nav-link font-medium ${activeSection === 'projects' ? 'active' : classes.navText} ${classes.navHover} hover:scale-105 transition-all duration-300`}>Projects</a>
+                                <a href="#skills" onClick={() => scrollToSection('skills')} className={`nav-link font-medium ${activeSection === 'skills' ? 'active' : classes.navText} ${classes.navHover} hover:scale-105 transition-all duration-300`}>Skills</a>
+                                <a href="#contact" onClick={() => scrollToSection('contact')} className={`nav-link font-medium ${activeSection === 'contact' ? 'active' : classes.navText} ${classes.navHover} hover:scale-105 transition-all duration-300`}>Contact</a>
+                            </div>
+                            <button
+                                onClick={() => setDarkMode(!darkMode)}
+                                className={`p-2 rounded-full ${classes.toggleBg} transition-colors duration-500 hover:scale-110`}
+                            >
+                                <svg className={`w-6 h-6 ${classes.toggleIcon}`} fill="currentColor" viewBox="0 0 20 20">
+                                    {darkMode ? (
+                                        <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.05a1 1 0 001.414 0l.707-.707a1 1 0 00-1.414-1.414l-.707.707a1 1 0 000 1.414zm-4.95 2.121a1 1 0 011.414 0L3.5 10.5a1 1 0 01-1.414-1.414L.05 8.171zM10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1z" clipRule="evenodd"></path>
+                                    ) : (
+                                        <path d="M17.293 13.593A7.962 7.962 0 0110 18a7.962 7.962 0 01-7.293-4.407A7.962 7.962 0 0010 15a7.962 7.962 0 007.293-1.407z"></path>
+                                    )}
+                                </svg>
+                            </button>
+                        </div>
+                    </nav>
+
+                    <main className="pt-20">
+                        {/* Hero Section */}
+                        <section id="hero" ref={heroRef} className="container mx-auto px-4 py-24 min-h-screen flex items-center justify-center text-center">
+                            <div className="animate-fadeIn">
+                                <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4 text-indigo-500 animate-slideInLeft">{resumeData.name}</h1>
+                                <p className="text-2xl md:text-3xl font-light tracking-wide mb-8 animate-slideInRight">{resumeData.title}</p>
+                                <a
+                                    href="Resume.pdf.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-block px-8 py-3 rounded-full text-white bg-indigo-600 hover:bg-indigo-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                                >
+                                    Download Resume
+                                </a>
+                            </div>
+                        </section>
+
+                        {/* About Me Section */}
+                        <section id="about" ref={aboutRef} className="container mx-auto px-4 py-24">
+                            <div className={`p-8 md:p-12 rounded-lg shadow-xl ${classes.cardBg} animate-fadeIn`}>
+                                <h2 className={`text-3xl md:text-4xl font-bold mb-4 text-center text-indigo-500`}>About Me</h2>
+                                <p className={`text-lg md:text-xl text-center font-light ${classes.cardText} leading-relaxed`}>{resumeData.professionalSummary}</p>
+                            </div>
+                        </section>
+
+                        {/* Education & Experience Section */}
+                        <section id="education" ref={educationRef} className="container mx-auto px-4 py-24">
+                            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-indigo-500 animate-fadeIn">Education & Experience</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                <div className="animate-slideInLeft">
+                                    <h3 className={`text-2xl font-semibold mb-6 ${classes.text}`}>Education</h3>
+                                    {resumeData.education.map((item, index) => (
+                                        <div key={index} className={`mb-6 p-6 rounded-lg shadow-md ${classes.cardBg} transform hover:scale-105 transition-all duration-300`}>
+                                            <h4 className={`text-xl font-bold ${classes.cardText}`}>{item.degree}</h4>
+                                            <p className={`text-md font-medium ${classes.cardText} opacity-80`}>{item.institution}</p>
+                                            <p className={`text-sm font-light ${classes.cardText} opacity-60`}>{item.years}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="animate-slideInRight">
+                                    <h3 className={`text-2xl font-semibold mb-6 ${classes.text}`}>Experience</h3>
+                                    {resumeData.experience.map((item, index) => (
+                                        <div key={index} className={`mb-6 p-6 rounded-lg shadow-md ${classes.cardBg} transform hover:scale-105 transition-all duration-300`}>
+                                            <h4 className={`text-xl font-bold ${classes.cardText}`}>{item.position} at {item.company}</h4>
+                                            <p className={`text-sm font-light ${classes.cardText} opacity-60`}>{item.date}</p>
+                                            <ul className="list-disc list-inside mt-4">
+                                                {item.description.map((desc, i) => (
+                                                    <li key={i} className={`text-md ${classes.cardText} opacity-90`}>{desc}</li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </section>
+
+                        {/* Projects Section */}
+                        <section id="projects" ref={projectsRef} className="container mx-auto px-4 py-24">
+                            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-indigo-500 animate-fadeIn">Projects</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {resumeData.projects.map((item, index) => (
+                                    <div key={index} className={`p-8 rounded-lg shadow-xl ${classes.cardBg} transform hover:scale-105 transition-all duration-300 animate-fadeIn`}>
+                                        <h3 className={`text-xl font-bold mb-2 ${classes.cardText}`}>{item.title}</h3>
+                                        <p className={`text-md mb-4 ${classes.cardText} opacity-80`}>{item.description}</p>
+                                        <a
+                                            href={item.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="inline-block px-4 py-2 rounded-full text-sm text-white bg-indigo-600 hover:bg-indigo-700 transition-all duration-300"
+                                        >
+                                            View Project
+                                        </a>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+
+                        {/* Skills Section */}
+                        <section id="skills" ref={skillsRef} className="container mx-auto px-4 py-24">
+                            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-indigo-500 animate-fadeIn">Skills</h2>
+                            <div className="flex flex-wrap justify-center gap-4">
+                                {resumeData.skills.map((skill, index) => (
+                                    <span key={index} className={`px-4 py-2 rounded-full font-medium shadow-md ${classes.cardBg} ${classes.cardText} transform hover:scale-110 transition-all duration-300 animate-fadeIn`}>
+                                        {skill}
+                                    </span>
+                                ))}
+                            </div>
+                        </section>
+
+                        {/* Certificates & Achievements Section */}
+                        <section id="certificates" className="container mx-auto px-4 py-24">
+                            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-indigo-500 animate-fadeIn">Certifications & Achievements</h2>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                {[...resumeData.certifications, ...resumeData.achievements].map((item, index) => (
+                                    <div key={index} className={`p-8 rounded-lg shadow-xl ${classes.cardBg} transform hover:scale-105 transition-all duration-300 animate-fadeIn`}>
+                                        <h3 className={`text-xl font-bold mb-2 ${classes.cardText}`}>{item.title}</h3>
+                                        <p className={`text-md font-medium ${classes.cardText} opacity-80`}>{item.issuer || item.description}</p>
+                                        <p className={`text-sm font-light ${classes.cardText} opacity-60`}>{item.date}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+
+                        {/* Contact Section */}
+                        <section id="contact" ref={contactRef} className="container mx-auto px-4 py-24">
+                            <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-indigo-500 animate-fadeIn">Get in Touch</h2>
+                            <div className={`p-8 md:p-12 rounded-lg shadow-xl ${classes.cardBg} animate-fadeIn text-center`}>
+                                <p className={`text-lg md:text-xl font-light mb-8 ${classes.cardText}`}>
+                                    I am actively seeking opportunities and would love to hear from you.
+                                </p>
+                                <div className="flex justify-center space-x-6">
+                                    <a
+                                        href={`mailto:${resumeData.contact.email}`}
+                                        className="inline-block px-6 py-2 rounded-full text-white bg-indigo-600 hover:bg-indigo-700 transition-all duration-300 font-semibold shadow-lg transform hover:-translate-y-1"
+                                    >
+                                        Email Me
+                                    </a>
+                                    <a
+                                        href={resumeData.contact.linkedin}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-block px-6 py-2 rounded-full text-white bg-gray-600 hover:bg-gray-700 transition-all duration-300 font-semibold shadow-lg transform hover:-translate-y-1"
+                                    >
+                                        LinkedIn
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+                    </main>
+                </div>
+            );
+        };
+
+        const container = document.getElementById('root');
+        const root = createRoot(container);
+        root.render(<App />);
+    </script>
+</body>
+</html>
