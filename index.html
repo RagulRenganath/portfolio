@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,7 +43,8 @@
         .nav-link {
             font-weight: 600;
             color: var(--secondary) !important;
-            margin: 0 5px;
+            margin: 0 4px;
+            font-size: 0.95rem;
             transition: var(--transition);
         }
 
@@ -52,9 +52,7 @@
             color: var(--accent) !important;
         }
 
-        main {
-            flex: 1;
-        }
+        main { flex: 1; }
 
         .hero {
             padding: 180px 0 100px;
@@ -95,11 +93,7 @@
             margin: 0 auto;
         }
 
-        .profile-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .profile-img-container img { width: 100%; height: 100%; object-fit: cover; }
 
         .btn-finance {
             background: var(--primary);
@@ -177,27 +171,90 @@
             border-color: var(--accent);
         }
 
+        /* Skills Progress */
         .skill-item { margin-bottom: 25px; }
         .progress { height: 8px; background: #e2e8f0; border-radius: 10px; overflow: visible; }
         .progress-bar { background: var(--primary); border-radius: 10px; position: relative; }
 
-        .edu-item {
-            border-left: 2px solid var(--accent);
-            padding-left: 25px;
-            margin-bottom: 30px;
-            position: relative;
+        /* Timeline / Journey Section */
+        .timeline-container {
+            border-left: 3px solid var(--accent);
+            padding-left: 30px;
+            margin-left: 15px;
         }
-
-        .edu-item::before {
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+        .timeline-item::before {
             content: '';
             position: absolute;
-            left: -9px;
-            top: 0;
-            width: 16px;
-            height: 16px;
+            left: -40px;
+            top: 5px;
+            width: 18px;
+            height: 18px;
             background: white;
-            border: 3px solid var(--primary);
+            border: 4px solid var(--accent);
             border-radius: 50%;
+            transition: var(--transition);
+        }
+        .timeline-item:hover::before {
+            background: var(--accent);
+            box-shadow: 0 0 10px rgba(202, 138, 4, 0.4);
+        }
+        .timeline-date {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Cinematic Media Section */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .video-wrapper iframe, .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Blog / Insights Cards */
+        .insight-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+            height: 100%;
+        }
+        .insight-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        .insight-body { padding: 25px; }
+        .insight-tag {
+            background: #e2e8f0;
+            color: var(--secondary);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
         .contact-pill {
@@ -214,33 +271,17 @@
             font-weight: 600;
             word-break: break-word;
         }
-        
         .contact-pill:hover { 
             background: var(--primary); 
             color: white !important; 
             transform: translateY(-3px);
         }
 
-        footer { 
-            background: var(--primary); 
-            color: white; 
-            padding: 40px 0; 
-            margin-top: auto;
-        }
+        footer { background: var(--primary); color: white; padding: 40px 0; margin-top: auto; }
 
-        /* Mobile Adjustments */
         @media (max-width: 991px) {
-            .navbar-nav {
-                background: white;
-                padding: 20px;
-                border-radius: 10px;
-                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-                margin-top: 15px;
-            }
-            .btn-finance.ms-lg-3 {
-                margin-top: 15px;
-                width: 100%;
-            }
+            .navbar-nav { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 15px; }
+            .btn-finance.ms-lg-3 { margin-top: 15px; width: 100%; }
         }
 
         @media (max-width: 768px) {
@@ -249,7 +290,6 @@
             .section-header h2::after { left: 50%; transform: translateX(-50%); }
             .section-header.text-start h2::after { left: 0; transform: none; }
             .btn-wrapper { justify-content: center !important; }
-            .edu-item { padding-left: 20px; text-align: left; }
         }
     </style>
 </head>
@@ -266,9 +306,10 @@
                 <ul class="navbar-nav ms-auto text-center align-items-center">
                     <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
                     <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#journey">Journey</a></li>
                     <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="R_RAGUL_RENGANATH_Resume.pdf" target="_blank">View Resume</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#insights">Insights</a></li>
+                    <li class="nav-item"><a class="nav-link" href="R_RAGUL_RENGANATH_Resume.pdf" target="_blank">Resume</a></li>
                     <li class="nav-item mt-3 mt-lg-0 ms-lg-3"><a class="btn-finance text-white w-100" href="#contact">Hire Me</a></li>
                 </ul>
             </div>
@@ -306,30 +347,14 @@
                 <div class="row g-5">
                     <div class="col-lg-6" data-aos="fade-up">
                         <div class="section-header text-start">
-                            <h2>Academic Foundation</h2>
+                            <h2>Executive Summary</h2>
                         </div>
-                        <p class="text-secondary lh-lg">I am an MBA Finance candidate with a strong foundation in economics, financial analysis, accounting principles, and business decision-making. I hold a Bachelor’s degree in Economics from PSG College of Arts & Science (8.9 CGPA) and am currently pursuing an MBA at Amrita School of Business.</p>
-                        
-                        <div class="mt-4 pt-3">
-                            <div class="edu-item">
-                                <span class="text-warning fw-bold">2025 - 2027</span>
-                                <h5 class="mb-1 fw-bold">Master of Business Administration (Finance)</h5>
-                                <p class="text-secondary mb-0">Amrita School of Business, Coimbatore</p>
-                                <span class="badge bg-primary mt-2">GPA: 8.28/10 (1st trimester)</span>
-                            </div>
-                            <div class="edu-item">
-                                <span class="text-warning fw-bold">2022 - 2025</span>
-                                <h5 class="mb-1 fw-bold">Bachelor of Arts (Economics)</h5>
-                                <p class="text-secondary mb-0">PSG College of Arts & Science, Coimbatore</p>
-                                <span class="badge bg-primary mt-2">CGPA: 8.9/10</span>
-                            </div>
-                        </div>
+                        <p class="text-secondary lh-lg mb-4">I am an MBA Finance candidate with a deep foundation in economics and analytical problem-solving. My core focus lies in investment banking, corporate finance, and equity research. I leverage technology—from advanced Excel modeling to SAP and UI/UX design—to transform complex market data into clear, actionable business strategies.</p>
                     </div>
                     <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
                         <div class="section-header text-start">
                             <h2>Analytical Toolkit</h2>
                         </div>
-                        
                         <div class="skill-item">
                             <div class="d-flex justify-content-between mb-2">
                                 <span class="fw-bold">Financial Modelling & Valuation</span>
@@ -346,13 +371,6 @@
                         </div>
                         <div class="skill-item">
                             <div class="d-flex justify-content-between mb-2">
-                                <span class="fw-bold">Cost Analysis & Budgeting</span>
-                                <span class="text-muted">80%</span>
-                            </div>
-                            <div class="progress"><div class="progress-bar" style="width: 80%"></div></div>
-                        </div>
-                        <div class="skill-item">
-                            <div class="d-flex justify-content-between mb-2">
                                 <span class="fw-bold">SAP ByDesign & Tally ERP</span>
                                 <span class="text-muted">75%</span>
                             </div>
@@ -363,26 +381,57 @@
             </div>
         </section>
 
-        <section id="experience" class="bg-white py-5">
+        <section id="journey" class="bg-white py-5">
             <div class="container py-4">
                 <div class="section-header text-center mb-5" data-aos="fade-up">
-                    <h2>Professional Experience</h2>
+                    <h2>Milestones & Experience</h2>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-lg-8" data-aos="fade-up">
-                        <div class="card-custom">
-                            <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
-                                <span class="badge bg-warning text-dark px-3 py-2 fs-6">Internship</span>
-                                <span class="text-muted fw-bold mt-2 mt-sm-0">April 2026 - June 2026</span>
+                        <div class="timeline-container">
+                            
+                            <div class="timeline-item" data-aos="fade-up">
+                                <span class="timeline-date">APR 2026 - JUN 2026</span>
+                                <h4 class="fw-bold mb-1">Corporate Finance Intern</h4>
+                                <h6 class="text-primary mb-3">Arche Global Private Limited, Coimbatore</h6>
+                                <p class="text-secondary small mb-0">Developing revolving cash flow models, evaluating commercial feasibility via NPV/IRR, and digitizing BG/LC workflows.</p>
                             </div>
-                            <h4 class="fw-bold">Finance Intern</h4>
-                            <h6 class="text-primary mb-3">ARCHE GLOBAL PRIVATE LIMITED</h6>
-                            <ul class="text-secondary lh-lg mb-0 ps-3">
-                                <li>Developed revolving cash flow models for liquidity planning and working capital management.</li>
-                                <li>Extracted TDS data from bank statements through SAP and reconciled deductions.</li>
-                                <li>Built commercial costing and NPV-based feasibility models for project evaluation.</li>
-                                <li>Supported digitization of BG/LC workflows and approval process mapping.</li>
-                            </ul>
+
+                            <div class="timeline-item" data-aos="fade-up">
+                                <span class="timeline-date">2025 - 2027</span>
+                                <h4 class="fw-bold mb-1">Master of Business Administration (Finance)</h4>
+                                <h6 class="text-primary mb-3">Amrita School of Business, Coimbatore</h6>
+                                <p class="text-secondary small mb-0">Pursuing an MBA with a strong focus on structured financial logic, corporate finance, and strategic management.</p>
+                            </div>
+
+                            <div class="timeline-item" data-aos="fade-up">
+                                <span class="timeline-date">SEP 2025</span>
+                                <h4 class="fw-bold mb-1">BNY Spectrum Joint Certification</h4>
+                                <h6 class="text-primary mb-3">BNY Mellon</h6>
+                                <p class="text-secondary small mb-0">Achieved specialized financial certification demonstrating commitment to industry-standard practices.</p>
+                            </div>
+
+                            <div class="timeline-item" data-aos="fade-up">
+                                <span class="timeline-date">MAY 2024 - JUN 2024</span>
+                                <h4 class="fw-bold mb-1">Export Operation Intern</h4>
+                                <h6 class="text-primary mb-3">SRIE Flora Garments</h6>
+                                <p class="text-secondary small mb-0">Gained practical exposure to trade logistics, operations, and cross-border commercial execution.</p>
+                            </div>
+
+                            <div class="timeline-item" data-aos="fade-up">
+                                <span class="timeline-date">2022 - 2025</span>
+                                <h4 class="fw-bold mb-1">Bachelor of Arts in Economics</h4>
+                                <h6 class="text-primary mb-3">PSG College of Arts & Science (CGPA: 8.9)</h6>
+                                <p class="text-secondary small mb-0">Built foundational expertise in macroeconomic theory, market dynamics, and global trade.</p>
+                            </div>
+
+                            <div class="timeline-item" data-aos="fade-up">
+                                <span class="timeline-date">MAY 2021</span>
+                                <h4 class="fw-bold mb-1">India Book of Records Holder</h4>
+                                <h6 class="text-primary mb-3">Maximum Standing Jumps in One Minute</h6>
+                                <p class="text-secondary small mb-0">Demonstrated physical endurance and discipline by completing 100 standing jumps in 60 seconds.</p>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -392,32 +441,80 @@
         <section id="projects" class="py-5">
             <div class="container py-4">
                 <div class="section-header text-center mb-5" data-aos="fade-up">
-                    <h2>Academic Projects</h2>
+                    <h2>Academic & Structural Projects</h2>
                 </div>
                 <div class="row g-4 align-items-stretch">
                     <div class="col-md-6" data-aos="fade-up">
                         <div class="card-custom">
-                            <div class="mb-auto">
-                                <span class="text-warning fw-bold small text-uppercase tracking-wider">Arche Global (2026)</span>
-                                <h4 class="mt-2 fw-bold">Cost Analysis & Commercial Feasibility</h4>
-                                <p class="text-secondary mt-3">Built an end-to-end cost model for an ERP integration and cloud migration project valued at ₹2.74 Cr.</p>
-                                <ul class="text-secondary small ps-3">
-                                    <li>Estimated delivery cost, resource loading, and risk reserves.</li>
-                                    <li>Evaluated project viability through NPV, IRR, cash flow scheduling, and sensitivity analysis.</li>
-                                </ul>
-                            </div>
+                            <span class="text-warning fw-bold small text-uppercase tracking-wider">Arche Global (2026)</span>
+                            <h4 class="mt-2 fw-bold">Cost Analysis & Commercial Feasibility</h4>
+                            <p class="text-secondary mt-3">Built an end-to-end cost model for an ERP integration and cloud migration project valued at ₹2.74 Cr.</p>
+                            <ul class="text-secondary small ps-3 mb-0 mt-auto">
+                                <li>Estimated delivery cost, resource loading, and risk reserves.</li>
+                                <li>Evaluated viability through NPV, IRR, and sensitivity analysis.</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
                         <div class="card-custom">
-                            <div class="mb-auto">
-                                <span class="text-warning fw-bold small text-uppercase tracking-wider">Amrita School of Business (2025)</span>
-                                <h4 class="mt-2 fw-bold">Financial Statement Analysis</h4>
-                                <p class="text-secondary mt-3">Evaluated the financial performance and accounting position of Sterlite Technologies and Polycab India over a five-year period.</p>
-                                <ul class="text-secondary small ps-3">
-                                    <li>Analyzed profitability, liquidity, and working capital under Ind AS standards.</li>
-                                    <li>Identified trends in financial stability and inventory efficiency.</li>
-                                </ul>
+                            <span class="text-warning fw-bold small text-uppercase tracking-wider">Amrita School of Business (2025)</span>
+                            <h4 class="mt-2 fw-bold">Financial Statement Analysis</h4>
+                            <p class="text-secondary mt-3">Evaluated the financial performance of Sterlite Technologies and Polycab India over a five-year period.</p>
+                            <ul class="text-secondary small ps-3 mb-0 mt-auto">
+                                <li>Analyzed profitability, liquidity, and working capital under Ind AS.</li>
+                                <li>Identified trends in financial stability and inventory efficiency.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="media" class="bg-dark text-white py-5">
+            <div class="container py-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
+                        <h2 class="fw-bold mb-3">Cinematic Profile & Pitch</h2>
+                        <div style="width: 60px; height: 4px; background: var(--accent); margin-bottom: 20px;"></div>
+                        <p class="opacity-75 mb-4">Beyond spreadsheets and financial models, I leverage cinematic videography, photography, and digital content creation to craft compelling professional narratives. A strong financial pitch requires both rigorous data and an engaging delivery.</p>
+                        <ul class="list-unstyled opacity-75 small lh-lg">
+                            <li><i class="bi bi-camera-video text-warning me-2"></i> Executive Video Pitching</li>
+                            <li><i class="bi bi-images text-warning me-2"></i> Professional Photography Editing</li>
+                            <li><i class="bi bi-code-slash text-warning me-2"></i> Front-End Digital Formatting</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-7" data-aos="zoom-in">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/t4Ofo2LpBME?rel=0" title="R Ragul Renganath - Professional Pitch" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="insights" class="py-5 bg-light">
+            <div class="container py-4">
+                <div class="section-header text-center mb-5" data-aos="fade-up">
+                    <h2>Insights & Research</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6" data-aos="fade-up">
+                        <div class="insight-card">
+                            <div class="insight-body">
+                                <span class="insight-tag mb-3 d-inline-block">Macroeconomics</span>
+                                <h4 class="fw-bold">A Study on Global Sugar Trade and its Influence on India’s Market Dynamics</h4>
+                                <p class="text-secondary small mt-3">A comprehensive research project evaluating international trade policies, export-import ratios, and their direct impact on domestic pricing and agricultural supply chains in India.</p>
+                                <a href="#" class="text-warning text-decoration-none fw-bold small mt-3 d-inline-block">Read Abstract <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="insight-card">
+                            <div class="insight-body">
+                                <span class="insight-tag mb-3 d-inline-block">Market Intelligence</span>
+                                <h4 class="fw-bold">Evaluating Tech-Driven Finance Solutions</h4>
+                                <p class="text-secondary small mt-3">An analysis of how AI-integrated financial dashboards, VBA automation, and ERP systems like SAP S/4HANA are streamlining corporate finance workflows and predictive valuation.</p>
+                                <a href="#" class="text-warning text-decoration-none fw-bold small mt-3 d-inline-block">Read Article <i class="bi bi-arrow-right"></i></a>
                             </div>
                         </div>
                     </div>
@@ -429,7 +526,7 @@
             <div class="container text-center py-5">
                 <div class="section-header" data-aos="fade-up">
                     <h2>Let's Collaborate</h2>
-                    <p class="text-secondary mt-3">Seeking opportunities to contribute in finance, fund accounting, business analysis, and analyst development programs.</p>
+                    <p class="text-secondary mt-3">Seeking opportunities to contribute in investment banking, corporate finance, and equity research.</p>
                 </div>
                 
                 <div class="d-flex flex-wrap justify-content-center gap-3 mt-4" data-aos="zoom-in">
