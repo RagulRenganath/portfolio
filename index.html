@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ragul Renganath | MBA Finance Portfolio</title>
+    
+    <meta name="description" content="Portfolio of R Ragul Renganath - MBA Finance Professional specializing in Financial Analysis & Economics.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #0f172a;    
+            --accent: #ca8a04;     
+            --secondary: #334155;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.9);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--light);
+            color: var(--primary);
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            padding: 1rem 0;
+            z-index: 1030;
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: var(--secondary) !important;
+            margin: 0 4px;
+            font-size: 0.95rem;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--accent) !important;
+        }
+
+        main { flex: 1; }
+
+        .hero {
+            padding: 180px 0 100px;
+            background: radial-gradient(circle at top right, #e2e8f0, #f8fafc);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-badge {
+            background: #eab30820;
+            color: var(--accent);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-img-container {
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 8px solid white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin: 0 auto;
+        }
+
+        .profile-img-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        .btn-finance {
+            background: var(--primary);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-finance:hover {
+            background: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(202, 138, 4, 0.2);
+            color: white;
+        }
+
+        .btn-outline-custom {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-outline-custom:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .section-header { margin-bottom: 3rem; }
+        .section-header h2 {
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+        }
+
+        .section-header h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60%;
+            height: 4px;
+            background: var(--accent);
+        }
+
+        .card-custom {
+            background: var(--glass);
+            border: 1px solid rgba(0,0,0,0.05);
+            border-radius: 16px;
+            padding: 30px;
+            height: 100%;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-custom:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: var(--accent);
+        }
+
+        /* Vault Specific Styles */
+        .vault-card {
+            background: var(--primary);
+            color: white;
+            border-radius: 16px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .vault-content-blur {
+            filter: blur(6px);
+            opacity: 0.4;
+            user-select: none;
+            pointer-events: none;
+        }
+        
+        .vault-overlay {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            background: rgba(15, 23, 42, 0.5);
+        }
+
+        /* Skills Progress */
+        .skill-item { margin-bottom: 25px; }
+        .progress { height: 8px; background: #e2e8f0; border-radius: 10px; overflow: visible; }
+        .progress-bar { background: var(--primary); border-radius: 10px; position: relative; }
+
+        /* Timeline / Journey Section */
+        .timeline-container {
+            border-left: 3px solid var(--accent);
+            padding-left: 30px;
+            margin-left: 15px;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -40px;
+            top: 5px;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border: 4px solid var(--accent);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+        .timeline-item:hover::before {
+            background: var(--accent);
+            box-shadow: 0 0 10px rgba(202, 138, 4, 0.4);
+        }
+        .timeline-date {
+            font-weight: 700;
+            color: var(--accent);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Cinematic Media Section */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            background: #000;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .video-wrapper iframe, .video-wrapper video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Blog / Insights Cards */
+        .insight-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+            height: 100%;
+        }
+        .insight-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+        .insight-body { padding: 25px; }
+        .insight-tag {
+            background: #e2e8f0;
+            color: var(--secondary);
+            padding: 5px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .contact-pill {
+            background: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin: 8px;
+            transition: var(--transition);
+            color: var(--primary);
+            font-weight: 600;
+            word-break: break-word;
+        }
+        .contact-pill:hover { 
+            background: var(--primary); 
+            color: white !important; 
+            transform: translateY(-3px);
+        }
+
+        footer { background: var(--primary); color: white; padding: 40px 0; margin-top: auto; }
+
+        @media (max-width: 991px) {
+            .navbar-nav { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-top: 15px; }
+            .btn-finance.ms-lg-3 { margin-top: 15px; width: 100%; }
+        }
+
+        @media (max-width: 768px) {
+            .hero { text-align: center; padding-top: 140px; min-height: auto; }
+            .profile-img-container { max-width: 280px; margin-bottom: 2.5rem; }
+            .section-header h2::after { left: 50%; transform: translateX(-50%); }
+            .section-header.text-start h2::after { left: 0; transform: none; }
+            .btn-wrapper { justify-content: center !important; }
+        }
+    </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="100">
+
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#">Ragul Renganath</a>
+            <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="bi bi-list fs-1"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto text-center align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#journey">Journey</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#vault">Vault <i class="bi bi-lock-fill"></i></a></li>
+                    <li class="nav-item"><a class="nav-link" href="#insights">Insights</a></li>
+                    <li class="nav-item"><a class="nav-link" href="R_RAGUL_RENGANATH_Resume.pdf" target="_blank">Resume</a></li>
+                    <li class="nav-item mt-3 mt-lg-0 ms-lg-3"><a class="btn-finance text-white w-100" href="#contact">Hire Me</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <header id="home" class="hero">
+            <div class="container">
+                <div class="row align-items-center flex-column-reverse flex-lg-row">
+                    <div class="col-lg-7 mt-5 mt-lg-0" data-aos="fade-right">
+                        <span class="hero-badge">MBA Finance | Economics Background</span>
+                        <h1>Bridging <span class="text-warning">Economics</span> with Financial Intelligence.</h1>
+                        <p class="lead text-secondary mb-4">
+                            I am <strong>R Ragul Renganath</strong>. I specialize in interpreting financial data, building structured models, and analyzing profitability drivers to support management decisions.
+                        </p>
+                        <div class="d-flex flex-wrap gap-3 btn-wrapper justify-content-lg-start">
+                            <a href="R_RAGUL_RENGANATH_Resume.pdf" target="_blank" class="btn-finance">
+                                <i class="bi bi-file-earmark-pdf"></i> Download CV
+                            </a>
+                            <a href="#projects" class="btn-outline-custom">View Projects</a>
+                        </div>
+                    </div>
+                    <div class="col-lg-5" data-aos="zoom-in">
+                        <div class="profile-img-container">
+                            <img src="profile.jpg" alt="R Ragul Renganath" class="img-fluid" onerror="this.src='https://via.placeholder.com/400x400?text=Profile+Image'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section id="about" class="py-5 mt-4">
+            <div class="container">
+                <div class="row g-5">
+                    <div class="col-lg-6" data-aos="fade-up">
+                        <div class="section-header text-start">
+                            <h2>Executive Summary</h2>
+                        </div>
+                        <p class="text-secondary lh-lg mb-4">I am an MBA Finance candidate with a deep foundation in economics and analytical problem-solving. My core focus lies in investment banking, corporate finance, and equity research. I leverage technology—from advanced Excel modeling to SAP and UI/UX design—to transform complex market data into clear, actionable business strategies.</p>
+                    </div>
+                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="section-header text-start">
+                            <h2>Analytical Toolkit</h2>
+                        </div>
+                        <div class="skill-item">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="fw-bold">Financial Modelling & Valuation</span>
+                                <span class="text-muted">85%</span>
+                            </div>
+                            <div class="progress"><div class="progress-bar" style="width: 85%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="fw-bold">Financial Statement & Ratio Analysis</span>
+                                <span class="text-muted">90%</span>
+                            </div>
+                            <div class="progress"><div class="progress-bar" style="width: 90%"></div></div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="fw-bold">SAP ByDesign & Tally ERP</span>
+                                <span class="text-muted">75%</span>
+                            </div>
+                            <div class="progress"><div class="progress-bar" style="width: 75%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="journey" class="bg-white py-5">
+            <div class="container py-4">
+                <div class="section-header text-center mb-5" data-aos="fade-up">
+                    <h2>Journey & Milestones</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-up">
+                        <div class="d-flex align-items-center mb-4 ps-3">
+                            <i class="bi bi-mortarboard-fill text-warning fs-3 me-3"></i>
+                            <h3 class="fw-bold mb-0">Education</h3>
+                        </div>
+                        <div class="timeline-container">
+                            <div class="timeline-item">
+                                <span class="timeline-date">2025 - 2027</span>
+                                <h4 class="fw-bold mb-1">Master of Business Administration (Finance)</h4>
+                                <h6 class="text-primary mb-3">Amrita School of Business, Coimbatore</h6>
+                                <p class="text-secondary small mb-0">Pursuing an MBA with a strong focus on structured financial logic, corporate finance, and strategic management.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <span class="timeline-date">2022 - 2025</span>
+                                <h4 class="fw-bold mb-1">Bachelor of Arts in Economics</h4>
+                                <h6 class="text-primary mb-3">PSG College of Arts & Science (CGPA: 8.9)</h6>
+                                <p class="text-secondary small mb-0">Built foundational expertise in macroeconomic theory, market dynamics, and global trade.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="d-flex align-items-center mb-4 ps-3">
+                            <i class="bi bi-briefcase-fill text-warning fs-3 me-3"></i>
+                            <h3 class="fw-bold mb-0">Experience & Certifications</h3>
+                        </div>
+                        <div class="timeline-container">
+                            <div class="timeline-item">
+                                <span class="timeline-date">APR 2026 - JUN 2026</span>
+                                <h4 class="fw-bold mb-1">Corporate Finance Intern</h4>
+                                <h6 class="text-primary mb-3">Arche Global Private Limited</h6>
+                                <p class="text-secondary small mb-0">Developing revolving cash flow models, evaluating commercial feasibility via NPV/IRR, and digitizing BG/LC workflows.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <span class="timeline-date">SEP 2025</span>
+                                <h4 class="fw-bold mb-1">BNY Spectrum Joint Certification</h4>
+                                <h6 class="text-primary mb-3">BNY Mellon</h6>
+                                <p class="text-secondary small mb-0">Achieved specialized financial certification demonstrating commitment to industry-standard practices.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <span class="timeline-date">MAY 2024 - JUN 2024</span>
+                                <h4 class="fw-bold mb-1">Export Operation Intern</h4>
+                                <h6 class="text-primary mb-3">SRIE Flora Garments</h6>
+                                <p class="text-secondary small mb-0">Gained practical exposure to trade logistics, operations, and cross-border commercial execution.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="py-5">
+            <div class="container py-4">
+                <div class="section-header text-center mb-5" data-aos="fade-up">
+                    <h2>Academic & Structural Projects</h2>
+                </div>
+                <div class="row g-4 align-items-stretch">
+                    <div class="col-md-6" data-aos="fade-up">
+                        <div class="card-custom">
+                            <span class="text-warning fw-bold small text-uppercase tracking-wider">Arche Global (2026)</span>
+                            <h4 class="mt-2 fw-bold">Cost Analysis & Commercial Feasibility</h4>
+                            <p class="text-secondary mt-3">Built an end-to-end cost model for an ERP integration and cloud migration project valued at ₹2.74 Cr.</p>
+                            <ul class="text-secondary small ps-3 mb-0 mt-auto">
+                                <li>Estimated delivery cost, resource loading, and risk reserves.</li>
+                                <li>Evaluated viability through NPV, IRR, and sensitivity analysis.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="card-custom">
+                            <span class="text-warning fw-bold small text-uppercase tracking-wider">Amrita School of Business (2025)</span>
+                            <h4 class="mt-2 fw-bold">Financial Statement Analysis</h4>
+                            <p class="text-secondary mt-3">Evaluated the financial performance of Sterlite Technologies and Polycab India over a five-year period.</p>
+                            <ul class="text-secondary small ps-3 mb-0 mt-auto">
+                                <li>Analyzed profitability, liquidity, and working capital under Ind AS.</li>
+                                <li>Identified trends in financial stability and inventory efficiency.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="vault" class="bg-light py-5">
+            <div class="container py-4">
+                <div class="section-header text-center mb-5" data-aos="fade-up">
+                    <h2>Confidential Vault</h2>
+                    <p class="text-secondary mt-3">Sanitized financial models and data sheets available upon verified request.</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-8" data-aos="zoom-in">
+                        <div class="vault-card">
+                            <div class="vault-overlay">
+                                <i class="bi bi-file-earmark-lock2-fill fs-1 text-warning mb-2"></i>
+                                <h4 class="fw-bold text-white mb-1">Arche Global Cost Model</h4>
+                                <p class="text-white-50 small mb-4">Requires access permission.</p>
+                                <a href="mailto:renganathr2135@gmail.com?subject=Request Access: Arche Global Cost Model Vault&body=Hi Ragul,%0D%0A%0D%0AI was viewing your portfolio and would like to request access to view your sanitized financial models.%0D%0A%0D%0AThank you," class="btn btn-warning fw-bold px-4 rounded-pill">
+                                    Request Access
+                                </a>
+                            </div>
+                            <div class="vault-content-blur">
+                                <h5 class="text-warning">₹2.74 Cr ERP Migration Analysis</h5>
+                                <p class="small mb-1">Sheet 1: CAPEX vs OPEX Breakdown</p>
+                                <p class="small mb-1">Sheet 2: 5-Year Cash Flow Projections (NPV/IRR)</p>
+                                <p class="small mb-0">Sheet 3: Scenario & Sensitivity Analysis Matrix</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="media" class="bg-dark text-white py-5">
+            <div class="container py-5">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 mb-5 mb-lg-0" data-aos="fade-right">
+                        <h2 class="fw-bold mb-3">Executive Video Pitch</h2>
+                        <div style="width: 60px; height: 4px; background: var(--accent); margin-bottom: 20px;"></div>
+                        <p class="opacity-75 mb-4">In the world of corporate finance, the ability to communicate complex data clearly is just as important as the analysis itself. This brief executive pitch outlines my background, my strategic approach to financial modeling, and the unique value I can bring to your team.</p>
+                        <ul class="list-unstyled opacity-75 small lh-lg">
+                            <li><i class="bi bi-person-video3 text-warning me-2"></i> Professional Communication</li>
+                            <li><i class="bi bi-graph-up-arrow text-warning me-2"></i> Strategic Financial Outlook</li>
+                            <li><i class="bi bi-bullseye text-warning me-2"></i> Clear Value Proposition</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-7" data-aos="zoom-in">
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/t4Ofo2LpBME?rel=0" title="R Ragul Renganath - Executive Pitch" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="insights" class="py-5 bg-white">
+            <div class="container py-4">
+                <div class="section-header text-center mb-5" data-aos="fade-up">
+                    <h2>Insights & Research</h2>
+                </div>
+                <div class="row g-4">
+                    <div class="col-md-6" data-aos="fade-up">
+                        <div class="insight-card">
+                            <div class="insight-body">
+                                <span class="insight-tag mb-3 d-inline-block">Macroeconomics</span>
+                                <h4 class="fw-bold">A Study on Global Sugar Trade and its Influence on India’s Market Dynamics</h4>
+                                <p class="text-secondary small mt-3">A comprehensive research project evaluating international trade policies, export-import ratios, and their direct impact on domestic pricing and agricultural supply chains in India.</p>
+                                <a href="#" class="text-warning text-decoration-none fw-bold small mt-3 d-inline-block">Read Abstract <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="insight-card">
+                            <div class="insight-body">
+                                <span class="insight-tag mb-3 d-inline-block">Market Intelligence</span>
+                                <h4 class="fw-bold">Evaluating Tech-Driven Finance Solutions</h4>
+                                <p class="text-secondary small mt-3">An analysis of how AI-integrated financial dashboards, VBA automation, and ERP systems like SAP S/4HANA are streamlining corporate finance workflows and predictive valuation.</p>
+                                <a href="#" class="text-warning text-decoration-none fw-bold small mt-3 d-inline-block">Read Article <i class="bi bi-arrow-right"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="bg-light py-5">
+            <div class="container text-center py-5">
+                <div class="section-header" data-aos="fade-up">
+                    <h2>Let's Collaborate</h2>
+                    <p class="text-secondary mt-3">Seeking opportunities to contribute in investment banking, corporate finance, and equity research.</p>
+                </div>
+                
+                <div class="d-flex flex-wrap justify-content-center gap-3 mt-4" data-aos="zoom-in">
+                    <a href="mailto:renganathr2135@gmail.com" class="contact-pill text-decoration-none">
+                        <i class="bi bi-envelope-fill text-warning"></i> Email Me
+                    </a>
+                    <a href="tel:+919345884864" class="contact-pill text-decoration-none">
+                        <i class="bi bi-telephone-fill text-warning"></i> Call Me
+                    </a>
+                    <a href="https://www.linkedin.com/in/ragul-renganath-r-7b73b2259" target="_blank" class="contact-pill text-decoration-none">
+                        <i class="bi bi-linkedin text-warning"></i> LinkedIn
+                    </a>
+                    <a href="Ragul_Renganath.vcf" class="contact-pill text-decoration-none text-white bg-primary" download>
+                        <i class="bi bi-person-badge-fill text-warning"></i> Save to Contacts
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container text-center">
+            <p class="mb-0 opacity-75 fw-light">© <span id="year"></span> R Ragul Renganath | Built with Structured Financial Logic.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true, offset: 50 });
+        document.getElementById("year").textContent = new Date().getFullYear();
+        
+        // Auto-close mobile menu on link click
+        document.querySelectorAll('.nav-link, .btn-finance').forEach(link => {
+            link.addEventListener('click', () => {
+                const navbarCollapse = document.getElementById('navbarNav');
+                if (navbarCollapse.classList.contains('show')) {
+                    new bootstrap.Collapse(navbarCollapse).toggle();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
