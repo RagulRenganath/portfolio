@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ragul Renganath | Vision & Precision</title>
+    <style>
+        /* --- Apple Corporate Light Mode Variables --- */
+        :root {
+            --bg-page: #fbfbfd;
+            --bg-surface: #ffffff;
+            --text-main: #1d1d1f;
+            --text-muted: #86868b;
+            --text-tertiary: #d2d2d7;
+            --accent-blue: #0071e3;
+            --accent-gradient: linear-gradient(135deg, #0071e3, #4facfe);
+            --gold-gradient: linear-gradient(135deg, #f59e0b, #fbbf24);
+            --border-light: rgba(0, 0, 0, 0.06);
+            --shadow-float: 0 30px 60px rgba(0,0,0,0.08);
+            --shadow-card: 0 8px 24px rgba(0,0,0,0.04);
+            --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, sans-serif;
+            
+            --cursor-x: 50vw;
+            --cursor-y: 50vh;
+        }
+
+        /* --- Dynamic Dark Mode Shift --- */
+        body.dark-shift {
+            --bg-page: #000000;
+            --bg-surface: #111113;
+            --text-main: #f5f5f7;
+            --text-muted: #a1a1a6;
+            --text-tertiary: #424245;
+            --border-light: rgba(255, 255, 255, 0.1);
+            transition: background-color 1s ease, color 1s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            font-family: var(--font-stack);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+            line-height: 1.5;
+            transition: background-color 1s ease, color 1s ease;
+            cursor: none; 
+        }
+
+        /* --- Magnetic Custom Cursor --- */
+        .cursor-dot {
+            position: fixed; top: 0; left: 0; width: 8px; height: 8px;
+            background: var(--accent-blue); border-radius: 50%;
+            transform: translate(calc(var(--cursor-x) - 4px), calc(var(--cursor-y) - 4px));
+            pointer-events: none; z-index: 9999;
+            transition: width 0.2s, height 0.2s, background 0.2s, transform 0.1s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .cursor-ring {
+            position: fixed; top: 0; left: 0; width: 40px; height: 40px;
+            border: 1px solid rgba(0, 113, 227, 0.4); border-radius: 50%;
+            transform: translate(calc(var(--cursor-x) - 20px), calc(var(--cursor-y) - 20px));
+            pointer-events: none; z-index: 9998;
+            transition: width 0.3s, height 0.3s, transform 0.15s ease-out;
+        }
+        body.hovering .cursor-dot { 
+            width: 50px; height: 50px; background: rgba(0, 113, 227, 0.1); 
+            backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+            transform: translate(calc(var(--cursor-x) - 25px), calc(var(--cursor-y) - 25px)); 
+        }
+        body.hovering .cursor-ring { width: 0; height: 0; opacity: 0; }
+
+        /* --- System Preloader --- */
+        .preloader {
+            position: fixed; inset: 0; background: #000; z-index: 10000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1), opacity 0.8s;
+        }
+        .loader-bar { width: 240px; height: 2px; background: #333; overflow: hidden; position: relative; margin-top: 24px; }
+        .loader-progress {
+            position: absolute; top: 0; left: 0; height: 100%; background: #fff; width: 0%;
+            animation: loadProgress 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+        @keyframes loadProgress { 0% { width: 0%; } 100% { width: 100%; } }
+        .preloader-text { color: #fff; font-size: 0.9rem; letter-spacing: 0.3em; text-transform: uppercase; font-weight: 600; }
+        body.loaded .preloader { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+
+        /* --- Scroll Reveal Mechanics --- */
+        .reveal-up {
+            opacity: 0; transform: translateY(50px) scale(0.98);
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+        .reveal-up.is-visible { opacity: 1; transform: translateY(0) scale(1); }
+        
+        .reveal-fade { opacity: 0; transition: opacity 1.5s ease; }
+        .reveal-fade.is-visible { opacity: 1; }
+
+        /* --- Sticky Glass Navigation --- */
+        .nav-bar {
+            position: fixed; top: 0; width: 100%; height: 56px;
+            background: rgba(251, 251, 253, 0.75);
+            backdrop-filter: saturate(180%) blur(24px); -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border-light);
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 5%; z-index: 1000; transition: background 0.5s, border-color 0.5s;
+        }
+        body.dark-shift .nav-bar { background: rgba(0,0,0,0.75); }
+        .nav-brand { font-weight: 600; font-size: 1.15rem; letter-spacing: -0.01em; }
+        .nav-button {
+            background: var(--text-main); color: var(--bg-page); border: none;
+            padding: 8px 20px; border-radius: 980px; font-size: 0.9rem;
+            font-weight: 500; cursor: pointer; transition: transform 0.2s, background 0.5s, color 0.5s;
+        }
+
+        /* --- Cinematic Hero Section --- */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 120px 5% 60px; max-width: 1400px; margin: 0 auto; gap: 8vw;
+        }
+        .hero-content { flex: 1.2; z-index: 2; }
+        .hero-tag {
+            color: var(--accent-blue); font-weight: 700; font-size: 0.95rem;
+            text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 24px; display: block;
+        }
+        .hero h1 { font-size: clamp(3.5rem, 8vw, 7.5rem); font-weight: 700; letter-spacing: -0.04em; line-height: 1.02; margin-bottom: 24px; }
+        .hero p { font-size: clamp(1.2rem, 2vw, 1.6rem); color: var(--text-muted); max-width: 600px; margin-bottom: 40px; }
+        
+        /* 3D Interactive Portrait */
+        .hero-visual { flex: 1; display: flex; justify-content: center; perspective: 1200px; }
+        .photo-card {
+            width: 100%; max-width: 440px; aspect-ratio: 4/5;
+            border-radius: 40px; overflow: hidden;
+            box-shadow: var(--shadow-float); background: #e5e5ea;
+            position: relative; transform-style: preserve-3d;
+            border: 8px solid var(--bg-surface);
+            transition: border-color 1s ease;
+        }
+        .photo-img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+        .glare {
+            position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.6) 0%, transparent 60%);
+            opacity: 0; pointer-events: none; mix-blend-mode: overlay; transition: opacity 0.3s;
+        }
+
+        /* --- Infinite Hardware Marquee --- */
+        .marquee-container {
+            width: 100%; padding: 30px 0; background: var(--bg-surface);
+            border-top: 1px solid var(--border-light); border-bottom: 1px solid var(--border-light);
+            overflow: hidden; white-space: nowrap; display: flex; align-items: center;
+            transition: background 1s ease;
+        }
+        .marquee-content { display: inline-flex; animation: marquee 30s linear infinite; gap: 60px; }
+        .marquee-item { font-size: 2.2rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.4;}
+        .marquee-item.solid { color: var(--text-main); opacity: 1; }
+        @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-50%); } }
+
+        /* --- Phase 1: Scrollytelling --- */
+        .scroll-narrative { height: 250vh; position: relative; background: transparent; }
+        .sticky-container {
+            position: sticky; top: 0; height: 100vh;
+            display: flex; align-items: center; justify-content: center; padding: 0 5%;
+        }
+        .sticky-text {
+            font-size: clamp(2.5rem, 6vw, 5.5rem); font-weight: 600; text-align: center;
+            letter-spacing: -0.03em; line-height: 1.1; max-width: 1200px;
+        }
+        .scroll-word { color: var(--text-tertiary); transition: color 0.4s ease, filter 0.4s ease; filter: blur(4px); }
+        .scroll-word.active { color: var(--text-main); filter: blur(0px); }
+        .scroll-word.highlight { color: var(--accent-blue); }
+
+        /* --- Vertical Timeline (The Journey) --- */
+        .timeline-section { padding: 150px 5%; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 700; letter-spacing: -0.04em; text-align: center; margin-bottom: 120px; }
+        
+        .timeline-node { display: flex; gap: 60px; margin-bottom: 80px; position: relative; }
+        .timeline-node::before {
+            content: ''; position: absolute; left: 220px; top: 10px; bottom: -90px;
+            width: 2px; background: var(--border-light); z-index: -1; transition: background 1s ease;
+        }
+        .timeline-node:last-child::before { display: none; }
+        
+        .timeline-date { width: 220px; font-weight: 600; color: var(--text-secondary); font-size: 1.2rem; padding-top: 5px; flex-shrink: 0; text-align: right; padding-right: 40px; position: relative; }
+        /* The glowing dot */
+        .timeline-date::after {
+            content: ''; position: absolute; right: -7px; top: 12px; width: 12px; height: 12px;
+            background: var(--bg-surface); border: 2px solid var(--accent-blue); border-radius: 50%;
+            transition: all 0.5s ease; box-shadow: 0 0 0 rgba(0, 113, 227, 0); z-index: 2;
+        }
+        .timeline-node.is-visible .timeline-date::after { background: var(--accent-blue); box-shadow: 0 0 20px rgba(0, 113, 227, 0.5); }
+        
+        .timeline-card {
+            background: var(--bg-surface); padding: 50px; border-radius: 32px;
+            box-shadow: var(--shadow-card); border: 1px solid var(--border-light);
+            flex: 1; transition: transform 0.4s ease, box-shadow 0.4s, background 1s ease;
+        }
+        .timeline-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-float); }
+        .timeline-card h3 { font-size: 2rem; margin-bottom: 10px; font-weight: 700; }
+        .timeline-card h4 { font-size: 1.2rem; color: var(--accent-blue); margin-bottom: 24px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
+        .timeline-card p { color: var(--text-muted); font-size: 1.15rem; line-height: 1.6; margin-bottom: 16px; }
+
+        /* --- Split Pane Deep Dive (Bajaj Capital) --- */
+        .split-section { padding: 100px 5% 150px; max-width: 1400px; margin: 0 auto; display: flex; align-items: center; gap: 80px; }
+        .split-text { flex: 1; }
+        .split-text h2 { font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 700; line-height: 1.1; margin-bottom: 24px; letter-spacing: -0.03em;}
+        .split-text p { font-size: 1.25rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 30px;}
+        .split-visual { flex: 1; height: 600px; background: var(--bg-surface); border-radius: 40px; border: 1px solid var(--border-light); box-shadow: var(--shadow-card); display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; transition: background 1s ease;}
+        /* Abstract AI Visual */
+        .split-visual::before {
+            content: ''; position: absolute; width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(79, 172, 254, 0.2) 0%, transparent 70%);
+            border-radius: 50%; filter: blur(40px); animation: pulseFloat 6s infinite alternate ease-in-out;
+        }
+        @keyframes pulseFloat { 0% { transform: scale(1) translate(0, 0); } 100% { transform: scale(1.2) translate(30px, -30px); } }
+
+        /* --- Bento Grid (Operations & Leadership) --- */
+        .bento-section { padding: 100px 5% 150px; max-width: 1400px; margin: 0 auto; }
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; auto-rows: minmax(340px, auto); }
+        .bento {
+            background: var(--bg-surface); border-radius: 40px; padding: 48px;
+            box-shadow: var(--shadow-card); border: 1px solid var(--border-light);
+            display: flex; flex-direction: column; justify-content: space-between;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s, background 1s ease;
+            position: relative; overflow: hidden;
+        }
+        .bento:hover { transform: translateY(-8px); box-shadow: var(--shadow-float); }
+        
+        .span-8 { grid-column: span 8; }
+        .span-4 { grid-column: span 4; }
+        .span-12 { grid-column: span 12; display: flex; flex-direction: row; align-items: center; gap: 60px; }
+        .span-6 { grid-column: span 6; }
+
+        .bento h3 { font-size: 2.2rem; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.02em;}
+        .bento p { font-size: 1.15rem; color: var(--text-muted); line-height: 1.6;}
+        .metric-huge { font-size: clamp(4rem, 8vw, 7.5rem); font-weight: 700; letter-spacing: -0.05em; color: var(--text-main); line-height: 1; margin-bottom: 20px; }
+        
+        .pill-container { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+        .pill { background: var(--bg-page); border: 1px solid var(--border-light); padding: 12px 24px; border-radius: 40px; font-size: 1rem; font-weight: 500; transition: background 1s ease;}
+
+        /* --- Advanced Horizontal Scroll (Ventures) --- */
+        .horizontal-wrapper { height: 400vh; position: relative; }
+        .horizontal-sticky { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; overflow: hidden; }
+        .horizontal-track { display: flex; gap: 50px; padding: 0 5vw; will-change: transform; }
+        
+        .h-card {
+            min-width: 65vw; max-width: 900px; height: 70vh;
+            background: var(--bg-surface); border-radius: 48px;
+            box-shadow: var(--shadow-card); border: 1px solid var(--border-light);
+            padding: 80px; display: flex; flex-direction: column; justify-content: center;
+            position: relative; overflow: hidden; transition: background 1s ease;
+        }
+        .h-card::before {
+            content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(0,113,227,0.03) 0%, transparent 70%); border-radius: 50%; pointer-events: none;
+        }
+        .h-card h4 { font-size: 1.15rem; color: var(--accent-blue); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 24px; font-weight: 600;}
+        .h-card h2 { font-size: clamp(2.5rem, 5vw, 4.5rem); font-weight: 700; line-height: 1.1; margin-bottom: 30px; letter-spacing: -0.03em;}
+        .h-card p { font-size: 1.4rem; color: var(--text-muted); max-width: 700px; line-height: 1.6;}
+
+        /* --- Phase 2: Dark Mode Contrast (The Record) --- */
+        .contrast-section {
+            padding: 250px 5%; display: flex; flex-direction: column; align-items: center; text-align: center;
+            min-height: 100vh; justify-content: center; border-top: 1px solid var(--border-light);
+        }
+        .record-title { font-size: clamp(3.5rem, 8vw, 7rem); font-weight: 700; letter-spacing: -0.04em; margin-bottom: 30px; }
+        .record-stats { display: flex; gap: 8vw; margin-top: 80px; flex-wrap: wrap; justify-content: center; }
+        .r-stat { text-align: center; }
+        .r-num { font-size: clamp(5rem, 10vw, 9rem); font-weight: 700; background: var(--gold-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
+        .r-label { font-size: 1.25rem; color: var(--text-muted); margin-top: 15px; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+
+        /* --- Tech Spec Sheet (Full Width Matrix) --- */
+        .spec-section { padding: 150px 5%; max-width: 1400px; margin: 0 auto; border-top: 1px solid var(--border-light); }
+        .spec-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 60px; margin-bottom: 60px; padding-bottom: 60px; border-bottom: 1px solid var(--border-light); }
+        .spec-title { font-size: 2rem; font-weight: 700; }
+        .spec-list { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        .spec-item { font-size: 1.25rem; color: var(--text-muted); font-weight: 500; display: flex; align-items: center;}
+        .spec-item::before { content: ''; display: inline-block; width: 8px; height: 8px; background: var(--accent-blue); border-radius: 50%; margin-right: 15px; }
+
+        /* --- iOS Sheet Modals --- */
+        .sheet-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 2000; opacity: 0; visibility: hidden; transition: all 0.5s ease;
+            display: flex; align-items: flex-end; justify-content: center;
+        }
+        .sheet-overlay.active { opacity: 1; visibility: visible; }
+        .sheet {
+            width: 100%; max-width: 1100px; height: 92vh;
+            background: var(--bg-surface); border-radius: 40px 40px 0 0;
+            padding: 80px 5%; overflow-y: auto; box-shadow: 0 -20px 80px rgba(0,0,0,0.2);
+            transform: translateY(100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), background 1s ease;
+        }
+        .sheet-overlay.active .sheet { transform: translateY(0); }
+        .sheet-close {
+            position: absolute; top: 30px; right: 30px; width: 44px; height: 44px;
+            background: var(--bg-page); border: none; border-radius: 50%; font-size: 1.5rem;
+            color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 1s ease;
+        }
+        .sheet-content h2 { font-size: 3rem; font-weight: 700; margin-bottom: 30px; border-bottom: 1px solid var(--border-light); padding-bottom: 20px; letter-spacing: -0.03em;}
+        .sheet-content h3 { font-size: 1.8rem; margin-bottom: 8px; font-weight: 600;}
+        .sheet-content h4 { font-size: 1.2rem; color: var(--accent-blue); margin-bottom: 24px; font-weight: 500; }
+        .sheet-list { list-style: none; margin-bottom: 50px; }
+        .sheet-list li { position: relative; padding-left: 24px; margin-bottom: 16px; font-size: 1.2rem; color: var(--text-muted); line-height: 1.6; }
+        .sheet-list li::before { content: "•"; position: absolute; left: 0; color: var(--text-main); font-weight: bold;}
+
+        /* Mobile Optimization */
+        @media (max-width: 1000px) {
+            .hero { flex-direction: column-reverse; text-align: center; padding-top: 140px; gap: 50px;}
+            .span-8, .span-4, .span-6, .span-12 { grid-column: span 12; }
+            .span-12 { flex-direction: column; align-items: flex-start;}
+            .h-card { min-width: 85vw; padding: 40px; }
+            .timeline-node { flex-direction: column; gap: 20px; }
+            .timeline-node::before { display: none; }
+            .timeline-date { width: auto; text-align: left; padding-right: 0; }
+            .timeline-date::after { display: none; }
+            .split-section { flex-direction: column; }
+            .spec-grid { grid-template-columns: 1fr; gap: 30px; }
+            .spec-list { grid-template-columns: 1fr; }
+            .cursor-dot, .cursor-ring { display: none; }
+            body { cursor: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hidden Citations Requirement:
+   [cite: 1] -> Amrita MBA, PSG BA, Kodaikanal (partial), Arche Global (SAP, 300+, 7 accounts, 27 FDs, Revolving Cash Flow, BG/LC SOP, NPV/IRR), Bajaj (WealthMax, AI), Projects (Sterlite/Polycab, Digital Trans).
+   [cite: 2] -> Kodaikanal 1st Rank Commerce, Skills (SAP, Tally, Excel), Certs (Yale, Excel, Tata, BNY, PMI), Leadership (Pragati, Magazine, ECOZEN), Achievements (100 jumps).
+   [cite: 3] -> Passport_Size_photo.jpeg.
+    -->
+
+    <!-- 1. System Preloader -->
+    <div class="preloader">
+        <div class="preloader-text">Initializing Framework</div>
+        <div class="loader-bar"><div class="loader-progress"></div></div>
+    </div>
+
+    <!-- Magnetic Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+    <!-- Global Navigation -->
+    <nav class="nav-bar">
+        <div class="nav-brand">Ragul Renganath R</div><!--[cite: 1]-->
+        <button class="nav-button hover-target" onclick="openSheet('resume-sheet')">View Technical Resume</button>
+    </nav>
+
+    <!-- 2. Cinematic Hero -->
+    <header class="hero">
+        <div class="hero-content reveal-up">
+            <span class="hero-tag">MBA Finance & Marketing</span><!--[cite: 1]-->
+            <h1>Absolute<br>Precision.</h1>
+            <p>Architecting structural integrity into enterprise operations. Merging high-volume SAP workflows with rigorous macro-economic logic.</p>
+            <button class="nav-button hover-target" style="padding: 18px 36px; font-size: 1.1rem; border-radius: 40px;" onclick="document.getElementById('journey').scrollIntoView({behavior: 'smooth'});">Explore the Journey</button>
+        </div>
+        <div class="hero-visual reveal-up" style="transition-delay: 0.2s;">
+            <div class="photo-card hover-target" id="portrait3D">
+                <div class="glare" id="glare"></div>
+                <img src="Passport_Size_photo.jpeg" alt="Ragul Renganath" class="photo-img"><!--[cite: 3]-->
+            </div>
+        </div>
+    </header>
+
+    <!-- 3. Hardware Marquee (Tech Stack) -->
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span class="marquee-item solid">SAP Business ByDesign</span><!--[cite: 2]-->
+            <span class="marquee-item">Financial Modeling</span>
+            <span class="marquee-item solid">Power BI</span>
+            <span class="marquee-item">NPV / IRR Analysis</span><!--[cite: 1]-->
+            <span class="marquee-item solid">Tally ERP</span><!--[cite: 2]-->
+            <span class="marquee-item">Cash Flow Modeling</span><!--[cite: 2]-->
+            <span class="marquee-item solid">Tableau</span>
+            <!-- Loop -->
+            <span class="marquee-item solid">SAP Business ByDesign</span>
+            <span class="marquee-item">Financial Modeling</span>
+            <span class="marquee-item solid">Power BI</span>
+            <span class="marquee-item">NPV / IRR Analysis</span>
+            <span class="marquee-item solid">Tally ERP</span>
+            <span class="marquee-item">Cash Flow Modeling</span>
+            <span class="marquee-item solid">Tableau</span>
+        </div>
+    </div>
+
+    <!-- 4. Phase 1 Scrollytelling -->
+    <section class="scroll-narrative" id="narrative-trigger">
+        <div class="sticky-container">
+            <h2 class="sticky-text">
+                <span class="scroll-word w1">Enterprise</span>
+                <span class="scroll-word w2">scale</span>
+                <span class="scroll-word w3">requires</span>
+                <span class="scroll-word w4">discipline.</span><br>
+                <span class="scroll-word w5">Every</span>
+                <span class="scroll-word w6">single</span>
+                <span class="scroll-word w7">transaction,</span><br>
+                <span class="scroll-word w8 highlight">verified</span>
+                <span class="scroll-word w9 highlight">without</span>
+                <span class="scroll-word w10 highlight">assumption.</span>
+            </h2>
+        </div>
+    </section>
+
+    <!-- 5. Vertical Timeline (The Academic & Professional Journey) -->
+    <section class="timeline-section" id="journey">
+        <h2 class="section-title reveal-up">The Trajectory.</h2>
+
+        <div class="timeline-node reveal-up">
+            <div class="timeline-date">2019 — 2022</div>
+            <div class="timeline-card hover-target">
+                <h3>Foundational Excellence</h3>
+                <h4>Kodaikanal Public School (ICSE / ISC)</h4><!--[cite: 1]-->
+                <p>Established an early standard of academic rigor, culminating in securing the 1st Rank across the entire Commerce Stream in Class XII.</p><!--[cite: 2]-->
+            </div>
+        </div>
+
+        <div class="timeline-node reveal-up">
+            <div class="timeline-date">2022 — 2025</div>
+            <div class="timeline-card hover-target">
+                <h3>Macro-Economic Theory</h3>
+                <h4>PSG College of Arts & Science</h4><!--[cite: 1]-->
+                <p>Graduated with a Bachelor of Arts in Economics, achieving an exceptional 8.9 CGPA. Mastered the theoretical frameworks that drive global market dynamics.</p><!--[cite: 1]-->
+            </div>
+        </div>
+
+        <div class="timeline-node reveal-up">
+            <div class="timeline-date">2025 — 2027</div>
+            <div class="timeline-card hover-target">
+                <h3>Strategic Administration</h3>
+                <h4>Amrita School of Business</h4><!--[cite: 1]-->
+                <p>Currently pursuing a Master of Business Administration in Finance & Marketing. Operating at an 8.59 CGPA, fusing economic theory with advanced corporate modeling and enterprise management.</p><!--[cite: 1]-->
+            </div>
+        </div>
+        
+        <div class="timeline-node reveal-up">
+            <div class="timeline-date">April — June 2026</div>
+            <div class="timeline-card hover-target">
+                <h3>Corporate Operations</h3>
+                <h4>Arche Global Private Limited</h4><!--[cite: 1]-->
+                <p>Executed enterprise-scale financial operations as a Finance Intern. Engineered robust Revolving Cash Flow Trackers and meticulously mapped BG/LC SOP workflows across Finance, Treasury, and Legal departments.</p><!--[cite: 1]-->
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Bento Grid (Operations Deep Dive) -->
+    <section class="bento-section">
+        <h2 class="section-title reveal-up">The Analytics Engine.</h2>
+        <div class="bento-grid">
+            
+            <div class="bento span-8 reveal-up hover-target">
+                <span class="hero-tag">Transaction Volume</span>
+                <div class="metric-huge">300+</div>
+                <h3>SAP ByDesign Entries.</h3><!--[cite: 1]-->
+                <p>Executed processing and verification of high-volume finance transactions, flawlessly managing vendor payments, customer receipts, and complex general ledger accounting.</p><!--[cite: 1]-->
+            </div>
+
+            <div class="bento span-4 reveal-up hover-target" style="background: rgba(0, 113, 227, 0.05);">
+                <span class="hero-tag">Reconciliation</span>
+                <div class="metric-huge">7</div>
+                <h3 style="color: var(--text-muted); font-size: 1.2rem;">Corporate Bank Accounts</h3><!--[cite: 1]-->
+                <div class="metric-huge" style="margin-top: 30px; font-size: 4rem;">27</div>
+                <h3 style="color: var(--text-muted); font-size: 1.2rem;">FD Accounts Reviewed</h3><!--[cite: 1]-->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 7. Split Feature (Bajaj Capital) -->
+    <section class="split-section">
+        <div class="split-text reveal-up">
+            <span class="hero-tag">Wealth Management & Fintech</span>
+            <h2>Artificial Intelligence in Financial Advisory.</h2><!--[cite: 1]-->
+            <p>During my tenure at Bajaj Capital Insurance, I pivoted into the intersection of technology and wealth management. Utilizing the WealthMax platform, I conducted extensive analyses of investor behavior.</p><!--[cite: 1]-->
+            <p>This culminated in the preparation of an industry-grade report dissecting the applications of AI-driven customer experiences within modern financial services.</p><!--[cite: 1]-->
+        </div>
+        <div class="split-visual reveal-up">
+            <h3 style="font-size: 4rem; font-weight: 700; color: var(--accent-blue); z-index: 2;">AI // W.M.</h3>
+        </div>
+    </section>
+
+    <!-- 8. Advanced Horizontal Scroll (Venture Architecture & Projects) -->
+    <section class="horizontal-wrapper">
+        <div class="horizontal-sticky">
+            <div class="horizontal-track" id="h-track">
+                
+                <div class="h-card hover-target">
+                    <div>
+                        <h4>Cost Analysis & Modeling</h4><!--[cite: 1]-->
+                        <h2>Digital Transformation.</h2>
+                        <p>Assisted in developing a comprehensive cost model for a proposed ₹2.74 Cr digital transformation project at Arche Global, covering ERP integration and cloud migration. Validated commercial feasibility utilizing structured NPV and IRR modeling.</p><!--[cite: 1]-->
+                    </div>
+                    <div class="pill-container">
+                        <span class="pill">NPV / IRR Analysis</span><!--[cite: 1]-->
+                        <span class="pill">Cost Estimation</span><!--[cite: 1]-->
+                    </div>
+                </div>
+
+                <div class="h-card hover-target">
+                    <div>
+                        <h4>Financial Statement Analysis</h4><!--[cite: 1]-->
+                        <h2>Corporate Profitability.</h2>
+                        <p>Executed a rigorous 5-year comparative financial analysis of Sterlite Technologies and Polycab India using Ind AS frameworks to evaluate liquidity, leverage, and working-capital trends.</p><!--[cite: 1]-->
+                    </div>
+                    <div class="pill-container">
+                        <span class="pill">Ind AS Frameworks</span><!--[cite: 1]-->
+                        <span class="pill">KPI Evaluation</span><!--[cite: 1]-->
+                    </div>
+                </div>
+
+                <div class="h-card hover-target">
+                    <div>
+                        <h4>Financial Intelligence</h4>
+                        <h2>Market Thesis.</h2>
+                        <p>Founded a proprietary financial research initiative. Designed to publish robust market perspectives, translating raw capital market data into highly strategic, readable assets.</p>
+                    </div>
+                    <div class="pill-container">
+                        <span class="pill">Research Initiative</span>
+                        <span class="pill">Content Architecture</span>
+                    </div>
+                </div>
+
+                <div class="h-card hover-target">
+                    <div>
+                        <h4>Platform Architecture</h4>
+                        <h2>InternBridge TN.</h2>
+                        <p>Conceptualized and mapped a high-velocity micro-internship platform engineered specifically to harness and deploy Tier-2 and Tier-3 talent across Tamil Nadu.</p>
+                    </div>
+                    <div class="pill-container">
+                        <span class="pill">Web Prototypes</span>
+                        <span class="pill">Talent Deployment</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. Phase 2: Dark Mode Inversion Section (The Record) -->
+    <section class="contrast-section" id="dark-trigger">
+        <span class="hero-tag reveal-up">Endurance & Mindset</span>
+        <h2 class="record-title reveal-up">Physical Discipline. Certified.</h2>
+        <p style="font-size: 1.6rem; color: var(--text-muted); max-width: 900px; margin: 0 auto;" class="reveal-up">Mental resilience in the boardroom stems from physical endurance. Discipline is not an abstract concept; it is a highly quantifiable metric.</p>
+        
+        <div class="record-stats reveal-up">
+            <div class="r-stat">
+                <div class="r-num">100</div>
+                <div class="r-label">Standing Jumps</div><!--[cite: 2]-->
+            </div>
+            <div class="r-stat">
+                <div class="r-num">60</div>
+                <div class="r-label">Seconds Flat</div><!--[cite: 2]-->
+            </div>
+            <div class="r-stat" style="margin-top: 30px; width: 100%;">
+                <h3 style="font-size: 2.5rem; color: var(--text-main);">India Book of Records</h3><!--[cite: 2]-->
+                <div class="r-label">2021 Achiever</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Bento Grid 2 (Leadership & Extracurriculars) -->
+    <section class="bento-section">
+        <h2 class="section-title reveal-up">Leadership & Execution.</h2>
+        <div class="bento-grid">
+            
+            <div class="bento span-12 reveal-up hover-target">
+                <div style="flex: 1;">
+                    <span class="hero-tag">Editorial Command</span>
+                    <h3 style="font-size: 3rem; margin-bottom: 20px;">Economics Magazine.</h3>
+                    <p style="font-size: 1.3rem;">Serving as the Lead Editor, actively coordinating complex editorial workflows and managing cross-functional team activities to produce high-level economic discourse.</p><!--[cite: 2]-->
+                </div>
+                <div style="flex: 1.5; border-left: 1px solid var(--border-light); padding-left: 60px;">
+                    <h4 style="font-size: 1.5rem; margin-bottom: 10px;">Operations Committee Member</h4>
+                    <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.2rem;">Pragati 2026. Orchestrated accommodation, stall operations, and seamless on-ground event execution under high-pressure scenarios.</p><!--[cite: 2]-->
+                    
+                    <h4 style="font-size: 1.5rem; margin-bottom: 10px;">Event Coordinator</h4>
+                    <p style="color: var(--text-muted); font-size: 1.2rem;">ECOZEN. Executed critical scheduling, logistical planning, and volunteer coordination.</p><!--[cite: 2]-->
+                </div>
+            </div>
+
+            <!-- Future Target -->
+            <div class="bento span-12 reveal-up hover-target" style="text-align: center; justify-content: center; padding: 80px;">
+                <span class="hero-tag">Strategic Trajectory</span>
+                <h3 style="font-size: 4rem; background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">2028 Target Lock.</h3>
+                <p style="font-size: 1.4rem; max-width: 800px; margin: 0 auto;">Rigorous preparation is currently underway for the UPSC Civil Services Examination and the RBI Grade B Officer examination. Building the macroeconomic foundation for national-level impact.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 11. Tech Spec Matrix (Certifications) -->
+    <section class="spec-section reveal-fade">
+        <div class="spec-grid">
+            <div class="spec-title">Certifications & Accreditations</div>
+            <div class="spec-list">
+                <div class="spec-item">Financial Markets — Yale University</div><!--[cite: 2]-->
+                <div class="spec-item">Excel 2019 Associate — Microsoft (MOS)</div><!--[cite: 2]-->
+                <div class="spec-item">Data Visualization — Tata Group (Forage)</div><!--[cite: 2]-->
+                <div class="spec-item">BNY Spectrum Joint Certification</div><!--[cite: 2]-->
+                <div class="spec-item">Prompt Engineering for PMs — PMI</div><!--[cite: 2]-->
+            </div>
+        </div>
+        <div class="spec-grid" style="border-bottom: none; padding-bottom: 0;">
+            <div class="spec-title">Core Competencies</div>
+            <div class="spec-list">
+                <div class="spec-item">Enterprise Finance Operations</div><!--[cite: 2]-->
+                <div class="spec-item">Complex Bank Reconciliation</div><!--[cite: 2]-->
+                <div class="spec-item">Advanced Ratio Analysis</div><!--[cite: 2]-->
+                <div class="spec-item">Working Capital Analysis</div><!--[cite: 2]-->
+                <div class="spec-item">Process Mapping & SOP Creation</div><!--[cite: 2]-->
+                <div class="spec-item">Cross-functional Collaboration</div><!--[cite: 2]-->
+            </div>
+        </div>
+    </section>
+
+    <!-- 12. Footer -->
+    <footer style="padding: 100px 5% 50px; text-align: center; font-size: 1.1rem; color: var(--text-muted); font-weight: 500;">
+        <p>Architected with precision. Ragul Renganath R | MBA Class of 2027</p><!--[cite: 1]-->
+    </footer>
+
+    <!-- --- iOS Modal Sheet (Deep Dive Resume for Recruiters) --- -->
+    <div class="sheet-overlay" id="resume-sheet">
+        <div class="sheet">
+            <button class="sheet-close hover-target" onclick="closeSheet('resume-sheet')">✕</button>
+            <div class="sheet-content">
+                <h2>Complete Corporate Data File</h2>
+                
+                <h3>Finance Intern</h3>
+                <h4>Arche Global Private Limited | April 2026 - June 2026</h4><!--[cite: 1]-->
+                <ul class="sheet-list">
+                    <li>Processed and verified 300+ finance transactions in SAP Business ByDesign covering vendor payments, customer receipts, general ledger, salary and bank entries.</li><!--[cite: 1]-->
+                    <li>Prepared Bank Reconciliation Statements for 7 corporate bank accounts and supported month-end closing and finance reporting.</li><!--[cite: 1]-->
+                    <li>Supported TDS verification across company branches and reviewed 27 Fixed Deposit accounts, identifying and reporting discrepancies.</li><!--[cite: 1]-->
+                    <li>Developed Excel-based Revolving Cash Flow Tracker and Outstanding Payables Dashboard to support cash and liability monitoring.</li><!--[cite: 1]-->
+                    <li>Assisted in project cost estimation and financial feasibility analysis using NPV, IRR, Payback Period, Profitability Index and sensitivity analysis.</li><!--[cite: 1]-->
+                </ul>
+
+                <h3 style="margin-top: 50px;">Financial Services Intern (Remote)</h3>
+                <h4>Bajaj Capital Insurance | May 2026 - June 2026</h4><!--[cite: 1]-->
+                <ul class="sheet-list">
+                    <li>Analysed investor behaviour and wealth-management solutions using the WealthMax platform.</li><!--[cite: 1]-->
+                    <li>Studied applications of AI in financial services and customer engagement.</li><!--[cite: 1]-->
+                    <li>Prepared an industry report on AI-driven customer experience in wealth management.</li><!--[cite: 1]-->
+                </ul>
+                
+                <h2 style="margin-top: 60px;">Academic Foundations</h2>
+                <ul class="sheet-list" style="margin-top: 30px;">
+                    <li><strong>Master of Business Administration (Finance & Marketing)</strong><br>Amrita School of Business | 2025-2027 | CGPA: 8.59/10</li><!--[cite: 1]-->
+                    <li><strong>Bachelor of Arts (Economics)</strong><br>PSG College of Arts & Science | 2022-2025 | CGPA: 8.9/10</li><!--[cite: 1]-->
+                    <li><strong>Higher Secondary (ISC Board)</strong><br>Kodaikanal Public School | 2021-2022 | 78.67%</li><!--[cite: 1]-->
+                    <li><strong>Secondary (ICSE Board)</strong><br>Kodaikanal Public School | 2019-2020 | 83.67%</li><!--[cite: 1]-->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Preloader ---
+        window.addEventListener('load', () => {
+            setTimeout(() => { document.body.classList.add('loaded'); }, 1400); 
+        });
+
+        // --- 2. Magnetic Custom Cursor ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorRing = document.querySelector('.cursor-ring');
+        
+        document.addEventListener('mousemove', (e) => {
+            document.documentElement.style.setProperty('--cursor-x', e.clientX + 'px');
+            document.documentElement.style.setProperty('--cursor-y', e.clientY + 'px');
+        });
+
+        document.querySelectorAll('.hover-target, button, a').forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+        });
+
+        // --- 3. Reveal Animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Timeline specific logic to activate the glowing dot
+                    if(entry.target.classList.contains('timeline-node')) {
+                        entry.target.classList.add('is-visible');
+                    }
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+        document.querySelectorAll('.reveal-up, .timeline-node, .reveal-fade').forEach(el => observer.observe(el));
+
+        // --- 4. 3D Parallax Photo Hover ---
+        const photo = document.getElementById('portrait3D');
+        const glare = document.getElementById('glare');
+
+        photo.addEventListener('mousemove', (e) => {
+            const rect = photo.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = ((y - centerY) / centerY) * -12;
+            const rotateY = ((x - centerX) / centerX) * 12;
+
+            photo.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
+            glare.style.opacity = '1';
+            glare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.6) 0%, transparent 60%)`;
+        });
+
+        photo.addEventListener('mouseleave', () => {
+            photo.style.transform = 'rotateX(0deg) rotateY(0deg) scale(1)';
+            glare.style.opacity = '0';
+        });
+
+        // --- 5. Dynamic Dark Mode Shift & Scrollytelling ---
+        const narrativeTrigger = document.getElementById('narrative-trigger');
+        const darkTrigger = document.getElementById('dark-trigger');
+        const words = document.querySelectorAll('.scroll-word');
+
+        window.addEventListener('scroll', () => {
+            const viewportHeight = window.innerHeight;
+            
+            // Text Masking Logic
+            const nRect = narrativeTrigger.getBoundingClientRect();
+            const totalDistance = nRect.height - viewportHeight;
+            if (nRect.top <= 0 && nRect.bottom >= viewportHeight) {
+                let progress = Math.abs(nRect.top) / totalDistance;
+                words.forEach((word, index) => {
+                    const threshold = (index + 1) / words.length;
+                    if (progress > threshold - 0.05) word.classList.add('active');
+                    else word.classList.remove('active');
+                });
+            }
+
+            // Dark Mode Shift Logic
+            const dRect = darkTrigger.getBoundingClientRect();
+            if (dRect.top < viewportHeight * 0.7 && dRect.bottom > viewportHeight * 0.3) {
+                document.body.classList.add('dark-shift');
+            } else {
+                document.body.classList.remove('dark-shift');
+            }
+        });
+
+        // --- 6. Advanced Horizontal Scroll ---
+        const hWrapper = document.querySelector('.horizontal-wrapper');
+        const hTrack = document.getElementById('h-track');
+
+        window.addEventListener('scroll', () => {
+            const rect = hWrapper.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+            if (rect.top <= 0 && rect.bottom >= viewportHeight) {
+                const progress = Math.abs(rect.top) / (rect.height - viewportHeight);
+                const maxScroll = hTrack.scrollWidth - window.innerWidth + 100;
+                hTrack.style.transform = `translateX(-${progress * maxScroll}px)`;
+            } else if (rect.top > 0) {
+                hTrack.style.transform = `translateX(0px)`;
+            }
+        });
+
+        // --- 7. iOS Sheet Modals ---
+        function openSheet(id) {
+            document.getElementById(id).classList.add('active');
+            document.querySelector('.cursor-dot').style.display = 'none';
+            document.querySelector('.cursor-ring').style.display = 'none';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeSheet(id) {
+            document.getElementById(id).classList.remove('active');
+            document.querySelector('.cursor-dot').style.display = 'block';
+            document.querySelector('.cursor-ring').style.display = 'block';
+            document.body.style.overflow = ''; 
+        }
+
+        document.querySelectorAll('.sheet-overlay').forEach(overlay => {
+            overlay.addEventListener('click', function(e) {
+                if (e.target === this) closeSheet(this.id);
+            });
+        });
+    </script>
+</body>
+</html>
